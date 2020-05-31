@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "272819090705",
+    "firebase_url": "https://translit-278118.firebaseio.com",
+    "project_id": "translit-278118",
+    "storage_bucket": "translit-278118.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:272819090705:android:c48730cb5cf27af14f48b0",
+        "android_client_info": {
+          "package_name": "kz.kaspi.translit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "272819090705-h5sgdok0d9tk5qg1nene4vj2nf616d29.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCajvp1Wbair8unZtmB89vKlErCLGDTqH4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "272819090705-h5sgdok0d9tk5qg1nene4vj2nf616d29.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
