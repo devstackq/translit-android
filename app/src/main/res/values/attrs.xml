@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<declare-styleable name="ds">
+<attr name="backgroundImage" format="reference"/>
+    <attr name="sendBtn" format="reference"/>
+    <attr name="arrow" format="reference"/>
+    <attr name="toggle_theme" format="reference"/>
+    <attr name="bgtoolbar" format="reference"/>
+    <attr name="bottomNavigation" format="color|reference"/>
+
+</declare-styleable>
+
+    <declare-styleable name="VideoPlayerView">
+        <attr name="isSeekBarVisible" format="boolean"/>
+        <attr name="isPlayButtonVisible" format="boolean"/>
+        <attr name="isPauseButtonVisible" format="boolean"/>
+    </declare-styleable>
+</resources>

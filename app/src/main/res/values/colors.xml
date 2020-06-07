@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#80000000</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+
+    <color name="titleTextColor">#808080</color>
+    <color name="titleTextColorD">#fff</color>
+    <color name="nav_text">#BEB7B6</color>
+    <color name="textColor">#393737</color>
+    <color name="textColorD">#FFFFFF</color>
+
+    <color name="defaultColor">#fff</color>
+    <color name="defaultColorD">#949494</color>
+    <color name="titleStyle">#808080</color>
+
+    <color name="editText">#fff</color>
+    <color name="editTextD">#323D4E</color>
+
+    <color name="editTextColor">#000</color>
+    <color name="editTextColorD">#fff</color>
+
+    <color name="bottomNavD">#323D4E</color>
+    <color name="bottomNav">#fff</color>
+    <color name="textView2">    #D5ECCF </color>
+    <color name="textView2D"> #074A46</color>
+
+    <color name="selectedColorD"> #DB7517</color>
+    <color name="selectedColor">#1789DB</color>
+</resources>

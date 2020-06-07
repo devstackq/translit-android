@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content"
+    app:theme="@style/ThemeOverlay.AppCompat.Light"
+    tools:ignore="ExtraText">
+
+    <item
+        android:id="@+id/nav_translate"
+        android:icon="@drawable/trans_black"
+        android:title="@string/nav_translate"
+
+        />
+    <item
+        android:id="@+id/nav_likes"
+        android:icon="@drawable/like"
+        android:title="@string/nav_likes"
+
+        />
+    <item
+        android:id="@+id/nav_latins"
+        android:icon="@drawable/main_btn"
+        android:title="@string/nav_trans_latin"
+
+        />
+    <item
+        android:id="@+id/nav_search"
+
+        android:icon="@drawable/search"
+        android:title="@string/nav_search"
+
+        />
+    <item
+        android:id="@+id/nav_account"
+        android:icon="@drawable/account"
+        android:title="@string/nav_account"
+      />
+
+</menu>

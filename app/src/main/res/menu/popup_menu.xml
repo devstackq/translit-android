@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/popup_menu"
+    >
+        <item
+            android:id="@+id/sendLetter"
+            android:title="@string/avtor_a_hat_jaz"
+            android:color="?attr/selectableItemBackground"
+            android:textColor="?attr/colorPrimary"
+            android:icon="@drawable/msg"
+            />
+
+        <item
+            android:id="@+id/share"
+            android:color="?attr/colorPrimary"
+            android:title="@string/qosymshamen_b_l_s"
+            android:textColor="?attr/colorPrimary"
+            android:icon="@drawable/share"
+            />
+
+        <item
+            android:id="@+id/additional"
+            android:color="?attr/colorPrimary"
+            android:title="@string/ma_an_qosymsha_kerek"
+            android:textColor="?attr/colorPrimary"
+            android:icon="@drawable/additional"
+            />
+    </menu>

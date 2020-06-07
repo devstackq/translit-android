@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">16Кириллица - Latynsha</string>
+    <string name="hint">мәтінді енгізіңіз</string>
+    <string name="hello_blank_fragment">Search page</string>
+    <string name="nav_send_message">Send Message</string>
+    <string name="nav_translate">Translate</string>
+    <string name="nav_likes">Likes</string>
+    <string name="nav_trans_latin">Cirilic - Latin</string>
+    <string name="nav_search">Search</string>
+    <string name="nav_account">Account</string>
+    <string name="text_latin_translate">try click</string>
+    <string name="text_cyrillic">try click</string>
+    <string name="kirilica">Kirilica</string>
+    <string name="qosymshamen_b_l_s">Qosymshamen bólіsý</string>
+    <string name="avtor_a_hat_jaz">Avtorǵa hat jazý</string>
+    <string name="ma_an_qosymsha_kerek">Maǵan qosymsha kerek</string>
+</resources>

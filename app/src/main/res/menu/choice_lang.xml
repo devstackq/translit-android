@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/choice_lang"
+    >
+    <item
+        android:id="@+id/kzrus"
+        android:title="kaz-ru"
+        android:color="?attr/selectableItemBackground"
+        android:textColor="?attr/colorPrimary"
+        android:icon="@drawable/msg"
+        />
+
+    <item
+        android:id="@+id/kzeng"
+        android:color="?attr/colorPrimary"
+        android:title="kaz-eng"
+        android:textColor="?attr/colorPrimary"
+        android:icon="@drawable/share"
+        />
+
+</menu>

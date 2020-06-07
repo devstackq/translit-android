@@ -1,0 +1,77 @@
+<resources>
+
+    <style name="LightTheme" parent="Theme.AppCompat.Light.NoActionBar" >
+        <item name="titleTextColor">@color/titleTextColor</item>u
+        <item name="colorPrimary" >@color/editText</item>
+        <item name="editTextColor">@color/editTextColor</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="titleTextStyle">@color/titleStyle</item>
+        <item name="editTextBackground">@color/editText</item>
+        <item name="backgroundColor">@color/textView2</item>
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:text">@color/textView2</item>
+        <item name="android:navigationIcon">@color/defaultColor</item>
+        <item name="bottomNavigation">@drawable/textline_white</item>
+        <item name="android:selectableItemBackground">@color/selectedColor</item>
+        <item name="android:selectableItemBackgroundBorderless">@color/defaultColorD</item>
+        <item name="android:actionOverflowButtonStyle">@style/MyActionButtonOverflow</item>
+        <item name="toggle_theme"> @drawable/light_toggle</item>
+        <item name="backgroundImage"> @drawable/main_bg</item>
+        <item name="sendBtn"> @drawable/send</item>
+        <item name="arrow"> @drawable/arrow</item>
+        <item name="bgtoolbar"> @color/bottomNav</item>
+
+    </style>
+
+    <style name="MyActionButtonOverflow"     parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:src">@drawable/more</item>
+        <item name="android:icon">@drawable/sun</item>
+        <item name="overlapAnchor"> false</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:scaleType">centerInside</item>
+    </style>
+
+
+    <style name="MyActionButtonOverflowDark"  parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:src">@drawable/more_dark</item>
+        <item name="android:icon">@drawable/light_toggle</item>
+        <item name="overlapAnchor"> false</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:scaleType">centerInside</item>
+    </style>
+
+    <style name="DarkTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="bgtoolbar"> @color/bottomNavD</item>
+        <item name="backgroundImage"> @drawable/dark_bg</item>
+        <item name="toggle_theme"> @drawable/sun</item>
+        <item name="arrow"> @drawable/arrow_dark</item>
+        <item name="sendBtn"> @drawable/send_dark</item>
+        <item name="titleTextColor">@color/titleTextColorD</item>
+        <item name="colorPrimary" >@color/editTextD</item>
+        <item name="editTextColor">@color/editTextColorD</item>
+        <item name="colorPrimaryDark">#DB7517</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="titleTextStyle">@color/titleStyle</item>
+        <item name="android:textColor">@color/textColorD</item>
+        <item name="editTextBackground">@color/editTextD</item>
+        <item name="backgroundColor">@color/textView2D</item>
+        <item name="android:selectableItemBackground">@color/selectedColorD</item>
+        <item name="android:selectableItemBackgroundBorderless">@color/defaultColor</item>
+        <item name="android:navigationIcon">@color/defaultColorD</item>
+        <item name="bottomNavigation">@drawable/textlines</item>
+        <item name="android:actionOverflowButtonStyle">@style/MyActionButtonOverflowDark</item>
+    </style>
+
+    <style name="BottomNavTheme" parent="Widget.Design.BottomNavigationView">
+        <item name="android:itemBackground">@color/bottomNav</item>
+    </style>
+
+    <style name="BottomNavThemeDark" parent="Widget.Design.BottomNavigationView">
+        <item name="android:itemBackground">@color/bottomNavD</item>
+    </style>
+
+
+
+</resources>
