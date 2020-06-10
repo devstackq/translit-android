@@ -30,6 +30,4 @@
         app:labelVisibilityMode="unlabeled"
         app:menu="@menu/main_menu" />
 
-
-
 </RelativeLayout>

@@ -41,7 +41,7 @@ import kz.kaspi.translit.ui.viewmodel.TransViewModel
 import kz.kaspi.translit.utils.SharedPreferencesHelper
 import kz.kaspi.translit.utils.StudentItemDecoration
 
-class MainFragment :  Fragment() {
+class MainFragments :  Fragment() {
 
     private val data = mutableListOf<TranslateData>()
     //    private val translated = TranslateData()
@@ -49,8 +49,6 @@ class MainFragment :  Fragment() {
     private var disposable = CompositeDisposable()
     private val database = Firebase.database
     private  var firebaseAuth  = FirebaseAuth.getInstance()
-
-
 
     //room
     // private var messageListAd : List<TranslateEntity> = arrayListOf()
@@ -252,7 +250,7 @@ class MainFragment :  Fragment() {
      val countWord = newWord.split("\\s+".toRegex()).size.toLong()
         val last = pref.getCountWord()
        val lastSumCurrent =  last?.toLong()?.plus(countWord)
-        pref.setCountWord(lastSumCurrent.toString())
+        pref.setCountWord(lastSumCurrent.toString(), pref.getUid().toString())
         println(last)
         return newWord
     }
@@ -333,3 +331,6 @@ class MainFragment :  Fragment() {
         return latinLetter
     }
 }
+//tablyoyt, 2 fragments (viewpager)
+//viewpagerFragemnt, left user statistics, -> adpter userStat(value sh pref)
+//right side - adapter - static data, list 10 user, - adapter generalStaticAdapater

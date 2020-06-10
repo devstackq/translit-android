@@ -151,19 +151,19 @@ class SharedPreferencesHelper(context:Context?)
         return prefPhoto.getString(USER_PHOTO, "photo")
     }
 
-    fun setCountWord(n: String) {
-        return prefCountWord.edit().putString(COUNT_WORD, n).apply()
+    fun setCountWord(n: String, uid: String) {
+        return prefCountWord.edit().putString(uid, n).apply()
     }
 
     fun getCountWord() : String? {
-        return prefCountWord.getString(COUNT_WORD, "0")
+        return prefCountWord.getString(getUid(), "0")
     }
 
-    fun setCountTime(n: String) {
-        return prefCountTime.edit().putString(COUNT_TIME, n).apply()
+    fun setCountTime(n: String, uid: String) {
+        return prefCountTime.edit().putString(uid+"time", n).apply()
     }
 
-    fun getCountTime() : String? {
-        return prefCountTime.getString(COUNT_TIME, "0")
+    fun getCountTime(uid: String) : String? {
+        return prefCountTime.getString (uid+"time", "0")
     }
 }

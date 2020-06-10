@@ -25,6 +25,13 @@ class AccountFragment : Fragment(R.layout.signin_fragment) {
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var pref: SharedPreferencesHelper
 
+    //adapter -> setContent() -> userStatic, generalStatit - set values 2 fragment
+    //viewPager.adapter = adapter
+    //TabLayoutMediator - set title
+    //onTabSelected ->sho content
+    //onTabReselected - show again
+    //onTabUnselected ->
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         pref = SharedPreferencesHelper(activity?.baseContext)
             // Config google signin
@@ -42,7 +49,7 @@ class AccountFragment : Fragment(R.layout.signin_fragment) {
         }else if (pref.getLogged()!!) {
             signinFrame.removeAllViews()
             requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.signinFrame, (ProfileFragment() as Fragment)).commit()
+                .replace(R.id.signinFrame, (ProfileFragments() as Fragment)).commit()
         }
     }
 
@@ -88,7 +95,7 @@ class AccountFragment : Fragment(R.layout.signin_fragment) {
                         //send value profile fragment, and hide signin views
                         signinFrame.removeAllViews()
                         requireActivity().supportFragmentManager.beginTransaction()
-                            .replace(R.id.signinFrame, (ProfileFragment() as Fragment)).commit()
+                            .replace(R.id.signinFrame, (ProfileFragments() as Fragment)).commit()
                     } else {
                         Log.d("SignInFragment", "signInWithCredential:failure")
                     }

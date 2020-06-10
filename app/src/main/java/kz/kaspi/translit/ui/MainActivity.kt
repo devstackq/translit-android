@@ -1,6 +1,5 @@
 package kz.kaspi.translit.ui
 
-
 import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -38,7 +37,7 @@ open class MainActivity : AppCompatActivity() {
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
         transaction.replace(
             R.id.frameLayout,
-            MainFragment()
+            MainFragments()
         )
         transaction.addToBackStack(null)
         transaction.commit()
@@ -50,7 +49,7 @@ open class MainActivity : AppCompatActivity() {
             var selectedFragment: Fragment? = null
             when (item.itemId) {
                 R.id.nav_latins -> selectedFragment =
-                    MainFragment()
+                    MainFragments()
                 R.id.nav_translate -> selectedFragment =
                     YandexFragment()
                 R.id.nav_search -> selectedFragment =

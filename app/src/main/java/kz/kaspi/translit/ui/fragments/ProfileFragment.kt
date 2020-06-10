@@ -7,9 +7,11 @@ import android.os.CountDownTimer
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import kz.kaspi.translit.ui.adapters.ViewPageAdapter
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -18,8 +20,7 @@ import kz.kaspi.translit.R
 import kz.kaspi.translit.utils.SharedPreferencesHelper
 
 
-class ProfileFragment : Fragment(R.layout.profile_fragment) {
-
+class ProfileFragments : Fragment(R.layout.profile_fragment) {
     private lateinit var pref: SharedPreferencesHelper
     private val database = Firebase.database
     private lateinit var mAuth: FirebaseAuth
@@ -28,6 +29,7 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
     companion object {
         private var timeInApp: Long = 0
     }
+
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -40,39 +42,12 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
             override fun onTick(millisUntilFinished: Long) {
                 //get last value, FB DB
                 timeInApp++
-                println(timeInApp)
             }
             // update value FB DB timeInApp
             override fun onFinish() {
                 cancel();
                 return
             }
-        }
-
-    //time update, when signout and signin
-        signout.setOnClickListener {
-            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build()
-            googleSignInClient = activity?.let { GoogleSignIn.getClient(it, gso) }!!
-            pref.setLogged(false)
-            signout.visibility = View.INVISIBLE
-            userAvatar.visibility = View.INVISIBLE
-            userName.visibility = View.INVISIBLE
-            userEmail.visibility = View.INVISIBLE
-            countWord.visibility = View.INVISIBLE
-            googleSignInClient.signOut()
-            //17
-            val shTime = pref.getCountTime()
-            val lastTime = (shTime?.toLong() ?: 0) + timeInApp
-           // pref.setCountTime(timeInApp.toString() +  pref.getCountTime() )
-            pref.setCountTime((lastTime).toString())
-
-            timeInApp = 0
-            timer.onFinish()
-            activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.signinFrame, (AccountFragment() as Fragment))?.commit()
         }
 
         if (pref.getLogged()!!) {
@@ -104,24 +79,62 @@ class ProfileFragment : Fragment(R.layout.profile_fragment) {
                 refCountWord.setValue(pref.getCountWord())
 
                 val refCountTime  = database.getReference("user/${pref.getUid()}/countTime")
-                refCountTime.setValue(pref.getCountTime())
+                refCountTime.setValue(pref.getCountTime(currentUser?.uid.toString()))
 
                 //get data -> google account -> save shared pref ->  show View
                 userName.text = pref.getNamePref()
                 userEmail.text = pref.getEmailPref()
                 //get photo sh pref, parse string to url
                 Glide.with(this).load(Uri.parse(pref.getPhotoPref())).into( userAvatar)
-                val t = pref.getCountTime()?.toInt()
+                val t = pref.getCountTime(currentUser?.uid.toString())?.toInt()
                 val min = t?.div(60)
-                countWord.text =  " Аударылған сөздер саны: " + pref.getCountWord()
-                //countTime.text =  " Қосымшада өтікзген уақыт саны: " +  pref.getCountTime() + "сек"
-                countTime.text = " Қосымшада өтікзген уақыт саны $min мин"
+
+//                countWord.text =  " Аударылған сөздер саны: " + pref.getCountWord()
+//                //countTime.text =  " Қосымшада өтікзген уақыт саны: " +  pref.getCountTime() + "сек"
+//                countTime.text = " Қосымшада өтікзген уақыт саны $min мин"
             }
         }
+
+        //time update, when signout and signin
+        signout.setOnClickListener {
+            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build()
+            googleSignInClient = activity?.let { GoogleSignIn.getClient(it, gso) }!!
+            pref.setLogged(false)
+            signout.visibility = View.INVISIBLE
+            userAvatar.visibility = View.INVISIBLE
+            userName.visibility = View.INVISIBLE
+            userEmail.visibility = View.INVISIBLE
+            //countWord.visibility = View.INVISIBLE
+            googleSignInClient.signOut()
+            //17
+            val shTime = pref.getCountTime(pref.getUid().toString())
+            val lastTime = (shTime?.toLong() ?: 0) + timeInApp
+            // pref.setCountTime(timeInApp.toString() +  pref.getCountTime() )
+            pref.setCountTime((lastTime).toString(), pref.getUid().toString())
+
+            timeInApp = 0
+            timer.onFinish()
+            activity?.supportFragmentManager?.beginTransaction()
+                ?.replace(R.id.signinFrame, (AccountFragment() as Fragment))?.commit()
+        }
+
+        setUpViews()
     }
 
-    // signin-> get by Uid, get sh pref, time,  -> show View, (300)
-    //timer start -> signin, timer stop -> signout(current 100), get last time - sh pref
-    //last + current time, update sh pref, set value FBDB
+    private fun setUpViews() {
+        activity?.let { safeActivity ->
+            viewpager.adapter = ViewPageAdapter(safeActivity)
+        }
+        TabLayoutMediator(tabLayout, viewpager) { tab, position ->
+            tab.text = when (position) {
+                0 -> "Жеке статистика"
+                1 -> "Барлық қолданушылар"
+                else -> "empty"
+            }
+        }.attach()
+    }
 }
 

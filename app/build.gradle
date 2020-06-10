@@ -45,6 +45,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    dataBinding {
+        enabled = true
+    }
 
 }
 
@@ -100,7 +103,7 @@ dependencies {
     testCompile 'android.arch.persistence.room:testing:1.1.1'
 
     //Firebase
-    implementation 'com.google.firebase:firebase-analytics:17.4.2'
+    implementation 'com.google.firebase:firebase-analytics:17.4.3'
     implementation 'com.google.android.gms:play-services-auth:18.0.0'
     implementation 'com.google.firebase:firebase-auth:19.3.1'
 
@@ -113,4 +116,8 @@ dependencies {
 
     //firebase DB
     implementation 'com.google.firebase:firebase-database-ktx:19.3.0'
+
+    //viewpager
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
+
 }
