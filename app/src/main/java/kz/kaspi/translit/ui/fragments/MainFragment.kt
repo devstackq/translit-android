@@ -1,7 +1,6 @@
 package kz.kaspi.translit.ui.fragments
 
 
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.os.Bundle
 import android.text.TextUtils
@@ -19,39 +18,35 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.database
-import com.google.firebase.database.ktx.getValue
-import com.google.firebase.ktx.Firebase
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_main.*
+import kotlinx.android.synthetic.main.fragment_main.listTranslateView
+import kotlinx.android.synthetic.main.fragment_main.scroll
+import kotlinx.android.synthetic.main.fragment_main.send_btn
+import kotlinx.android.synthetic.main.fragment_main.toolbar
 import kz.kaspi.translit.R
-import kz.kaspi.translit.adapters.MainAdapter
+import kz.kaspi.translit.ui.adapters.MainAdapter
 import kz.kaspi.translit.data.entity.TranslateEntity
 import kz.kaspi.translit.models.TranslateData
-import kz.kaspi.translit.models.User
 import kz.kaspi.translit.ui.viewmodel.TransViewModel
 import kz.kaspi.translit.utils.SharedPreferencesHelper
 import kz.kaspi.translit.utils.StudentItemDecoration
 
+//diffUtil //save item, room-> list entity, adapter call ->  setDiffValue(oldList, newList), compare data, if unique by id, add item
 class MainFragments :  Fragment() {
 
+    companion object {
+        const val KEY_VALUE = "id"
+    }
+
     private val data = mutableListOf<TranslateData>()
-    //    private val translated = TranslateData()
     private lateinit var pref: SharedPreferencesHelper
     private var disposable = CompositeDisposable()
-    private val database = Firebase.database
-    private  var firebaseAuth  = FirebaseAuth.getInstance()
 
     //room
-    // private var messageListAd : List<TranslateEntity> = arrayListOf()
     private lateinit var transAdapterRoom : MainAdapter
     var message: TranslateEntity? = null
     private lateinit var msgViewModel: TransViewModel
@@ -66,6 +61,7 @@ class MainFragments :  Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
           val  arg = view.findViewById<EditText>(R.id.inputtext)!!
+
          val translit : Observable<String> = Observable.create { emitter ->
              emitter.onNext(arg.text.toString())
              emitter.onComplete()
@@ -86,11 +82,13 @@ class MainFragments :  Fragment() {
         transAdapterRoom = activity?.let { MainAdapter(it) }!!
         listTranslateView.adapter = transAdapterRoom
 
+        //save 1 new item room, getAllData, send new DataList, Diffutil compare 2 list, old, new
+
+        //set msg from room
         msgViewModel = ViewModelProviders.of(this).get(TransViewModel::class.java)
         msgViewModel.getAllMessages().observe(viewLifecycleOwner, Observer {
-            it?.let { it1 -> transAdapterRoom.setAllItems(it1) }
+            it?.let { it1 -> transAdapterRoom.setDiffValue(it1) }
         })
-
 
 //get value theme, change night mode/true/false -> change night mode
         val themePref = activity?.getSharedPreferences("ThemeMode", Context.MODE_PRIVATE)
@@ -145,12 +143,12 @@ class MainFragments :  Fragment() {
         // not work - bacause -> change save data, before : shared pref, then room
         mRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                if (dy < 0) {
+                if (dy > 0) {
                     if (scroll.isShown) {
                         scroll.visibility = View.GONE
                     }
                 }
-                if(dy > 0 ) {
+                if(dy < 0 ) {
                     if (!scroll.isShown) {
                         scroll.visibility = View.VISIBLE
                     }
@@ -177,7 +175,8 @@ class MainFragments :  Fragment() {
                                         cyrillic = argument,
                                         latin = transSentences(argument)
                                     )
-                                    msgViewModel.saveMessage(todo)
+                                   msgViewModel.saveMessage(todo)
+                             //save item, room-> list entity, adapter call ->  setDiffValue(oldList, newList), compare data, if unique by id, add item
                                 }
                             },
                             {
@@ -194,8 +193,8 @@ class MainFragments :  Fragment() {
                     override fun getVerticalSnapPreference(): Int =
                         SNAP_TO_START
                 }
-                scrollerSmooth.targetPosition = data.size - 1
-//                transLayoutManager.startSmoothScroll(scrollerSmooth)
+                scrollerSmooth.targetPosition = data.size
+              transLayoutManager.startSmoothScroll(scrollerSmooth)
             }
         }
 
@@ -331,6 +330,3 @@ class MainFragments :  Fragment() {
         return latinLetter
     }
 }
-//tablyoyt, 2 fragments (viewpager)
-//viewpagerFragemnt, left user statistics, -> adpter userStat(value sh pref)
-//right side - adapter - static data, list 10 user, - adapter generalStaticAdapater

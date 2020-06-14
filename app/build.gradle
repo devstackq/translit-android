@@ -120,4 +120,8 @@ dependencies {
     //viewpager
     implementation "androidx.viewpager2:viewpager2:1.0.0"
 
+    //motion layout
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta6'
+//picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }

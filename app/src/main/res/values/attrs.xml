@@ -14,5 +14,8 @@
         <attr name="isSeekBarVisible" format="boolean"/>
         <attr name="isPlayButtonVisible" format="boolean"/>
         <attr name="isPauseButtonVisible" format="boolean"/>
+        <attr name="isViewBackVisible" format="boolean"/>
+        <attr name="isTitleTextViewVisible" format="boolean"/>
+
     </declare-styleable>
 </resources>

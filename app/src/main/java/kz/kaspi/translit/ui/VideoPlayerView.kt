@@ -10,7 +10,6 @@ import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.videoplayer_view.view.*
 import kz.kaspi.translit.R
 
-
 class VideoPlayerView
 @JvmOverloads constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int = 0) :
     FrameLayout(context, attrs, defStyleAttr) {
@@ -20,6 +19,8 @@ class VideoPlayerView
     private val handlerView: Handler? = Handler()
     private var isPlayBtnVisible = true
     private var isPauseBtnVisible = false
+    private var isViewBackVisible = true
+    private var isTitleTextViewVisible = true
 
     init {
         inflate(context, R.layout.videoplayer_view, this)
@@ -34,11 +35,20 @@ class VideoPlayerView
                 R.styleable.VideoPlayerView_isSeekBarVisible,
                 isSeekBarVisible
             )
+            isViewBackVisible = typedArray.getBoolean(
+                R.styleable.VideoPlayerView_isViewBackVisible,
+                isViewBackVisible
+            )
+            isTitleTextViewVisible = typedArray.getBoolean(
+                R.styleable.VideoPlayerView_isTitleTextViewVisible,
+                isTitleTextViewVisible
+            )
             seekBar.isVisible = isSeekBarVisible
             playVideo.isVisible = isPlayBtnVisible
             pauseVideo.isVisible = isPauseBtnVisible
             typedArray.recycle()
         }
+
         seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 seekBar?.progress = videoView.currentPosition
@@ -55,12 +65,9 @@ class VideoPlayerView
             }
         })
     }
-//todo after
+
     fun pause() {
         videoView.pause()
-         pauseVideo.isVisible = false
-         isPauseBtnVisible = true
-         isPlayBtnVisible = false
     }
 
     fun play(url: String) {

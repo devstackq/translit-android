@@ -1,23 +1,26 @@
-package kz.kaspi.translit.adapters
+package kz.kaspi.translit.ui.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.*
 import androidx.appcompat.view.menu.MenuBuilder
 import androidx.appcompat.view.menu.MenuPopupHelper
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.internal.ContextUtils.getActivity
 import kotlinx.android.synthetic.main.translate_items.view.*
 import kz.kaspi.translit.R
 import kz.kaspi.translit.data.entity.TranslateEntity
+import kz.kaspi.translit.models.TranslateData
 
 
+//diff util callback add, trans
 class MainAdapter( context: Context
-    //private val clickListener: (name: TranslateEntity) -> Unit
-  //  private val removeListener: (name: TranslateData) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    val mList   = mutableListOf<TranslateEntity>()
+
     private val context: Context? = null
-   // private val listValue = mutableListOf<TranslateData>()
     private var messageList: List<TranslateEntity> = arrayListOf()
 
     override fun onViewRecycled(holder: RecyclerView.ViewHolder) {
@@ -28,7 +31,6 @@ class MainAdapter( context: Context
     //create 1 view holder, - pattern translate items
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater: LayoutInflater = LayoutInflater.from(parent.context)
-        //return apply, adapter
         return ViewHolder(inflater, parent)
     }
 
@@ -40,6 +42,7 @@ class MainAdapter( context: Context
         //from data to bind, and set
         (holder as ViewHolder).bind(messageList[position])
         //click listener, by item position -> call other func
+
 
         holder.itemView.setOnCreateContextMenuListener { contextMenu, _, _ ->
             contextMenu.add("Kóshіrý").setOnMenuItemClickListener {
@@ -63,14 +66,6 @@ class MainAdapter( context: Context
         }
     }
 
-    //send data from fragment, list
-//    fun setItems(item: MutableList<TranslateData>) {
-//        listValue.run {
-//            clear()
-//            addAll(item)
-//        }
-//        notifyDataSetChanged()
-//    }
 
     inner class ViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
         View.OnCreateContextMenuListener, RecyclerView.ViewHolder(
@@ -115,13 +110,14 @@ class MainAdapter( context: Context
             popupHelper?.show()
         }
     }
-    //todo
-//    interface MessageEvents {
-//        fun onDeleteClicked(message: TranslateEntity)
-//        fun onViewClicked(message: TranslateEntity)
-//    }
-fun setAllItems(message: List<TranslateEntity>) {
-    this.messageList = message
-    notifyDataSetChanged()
-}
+
+//save item, room-> list entity, adapter call ->  1etDiffValue(oldList, newList), compare data, if unique by id, add item1
+    fun setDiffValue(list: List<TranslateEntity>) {
+        val result: DiffUtil.DiffResult = DiffUtil.calculateDiff(DiffCallback(mList, list), false)
+        result.dispatchUpdatesTo(this)
+        mList.clear()
+        mList.addAll(list)
+
+        this.messageList = mList
+    }
 }

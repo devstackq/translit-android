@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<kz.kaspi.translit.ui.SingleTouchMotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:id="@+id/videoMotionLayout"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="@android:color/transparent"
+app:layoutDescription="@xml/player_scene"
+app:layout_collapseMode="parallax">
+
+<androidx.cardview.widget.CardView
+    android:id="@+id/videoViewContainer"
+    android:layout_width="match_parent"
+    android:layout_height="250dp"
+    app:cardCornerRadius="0dp"
+    app:cardElevation="5dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+<kz.kaspi.translit.ui.VideoPlayerView
+    android:id="@+id/videoPlayerView"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:elevation="10dp"
+    app:isSeekBarVisible="true"
+    app:isViewBackVisible="false"
+    app:layout_constraintBottom_toBottomOf="@+id/videoViewContainer"
+    app:layout_constraintEnd_toEndOf="@+id/videoViewContainer"
+    app:layout_constraintStart_toStartOf="@+id/videoViewContainer"
+    app:layout_constraintTop_toTopOf="@+id/videoViewContainer" />
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_marginTop="0dp"
+    android:clickable="true"
+    android:background="@color/bottomNav"
+    android:elevation="10dp"
+    android:focusable="true"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/videoViewContainer"
+    >
+
+    <TextView
+        android:id="@+id/recyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="8dp"
+        android:fontFamily="sans-serif-light"
+        android:text="Молодого мажора по имени Азамат, привыкшего к комфортной городской жизни, по стечению непредвиденных обстоятельств, отправляют работать Акимом в отдаленный посёлок - Таза Булак. ... С первого дня пребывания в ауле, новоиспечённый Аким мечтает о том, чтобы вернуться в город."
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</kz.kaspi.translit.ui.SingleTouchMotionLayout>
+

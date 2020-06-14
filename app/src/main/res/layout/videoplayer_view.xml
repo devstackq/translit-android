@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/videoContainer"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
     <VideoView
         android:id="@+id/videoView"
@@ -17,7 +17,8 @@
         android:id="@+id/pauseVideo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="80dp"
         android:backgroundTint="@android:color/transparent"
         android:src="@drawable/pause_svg" />
 
@@ -25,30 +26,18 @@
         android:id="@+id/playVideo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:src="@drawable/play"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="80dp"
         android:backgroundTint="@android:color/transparent"
+        android:src="@drawable/play_svg" />
 
-   />
 
     <SeekBar
         android:id="@+id/seekBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="10dp"
+        android:layout_height="5dp"
+        android:layout_marginTop="190dp"
         android:max="100" />
-
-    <TextView
-        android:id="@+id/playedTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="30dp"
-        android:text=""
-        android:textColor="#FFF" />
-
 
     <TextView
         android:id="@+id/titleVideo"
@@ -58,6 +47,29 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="200dp"
         android:text=""
-
+        android:textColor="#fff"
         android:textAlignment="viewStart" />
+
+    <TextView
+        android:id="@+id/descriptionVideo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="250dp"
+        android:layout_marginEnd="16dp"
+        android:text=""
+        app:lineHeight="24sp" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="" />
+
 </FrameLayout>

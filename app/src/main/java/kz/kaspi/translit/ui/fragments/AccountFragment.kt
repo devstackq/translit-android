@@ -25,12 +25,6 @@ class AccountFragment : Fragment(R.layout.signin_fragment) {
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var pref: SharedPreferencesHelper
 
-    //adapter -> setContent() -> userStatic, generalStatit - set values 2 fragment
-    //viewPager.adapter = adapter
-    //TabLayoutMediator - set title
-    //onTabSelected ->sho content
-    //onTabReselected - show again
-    //onTabUnselected ->
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         pref = SharedPreferencesHelper(activity?.baseContext)
@@ -84,7 +78,7 @@ class AccountFragment : Fragment(R.layout.signin_fragment) {
 
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
-        mAuth = FirebaseAuth.getInstance()
+        mAuth = FirebaseAuth.getInstance();
         if(mAuth.currentUser != null) {
             mAuth.signInWithCredential(credential)
                 .addOnCompleteListener { task ->
