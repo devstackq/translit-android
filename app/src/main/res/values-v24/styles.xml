@@ -7,4 +7,12 @@
         <item name="android:dropDownVerticalOffset">36dip</item>
         <item name="android:titleMarginTop">36dp</item>
     </style>
+
+    <style name="MyActionButtonOverflowDark" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:src">@drawable/more_dark</item>
+        <item name="android:icon">@drawable/light_toggle</item>
+        <item name="overlapAnchor">false</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:scaleType">centerInside</item>
+    </style>
 </resources>

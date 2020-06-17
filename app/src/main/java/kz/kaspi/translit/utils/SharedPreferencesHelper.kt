@@ -2,12 +2,11 @@ package kz.kaspi.translit.utils
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.os.CountDownTimer
-import android.widget.ImageView
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kz.kaspi.translit.models.TranslateData
 import kz.kaspi.translit.models.YandexDataAdapter
+import kz.kaspi.translit.models.YandexModel
 import java.lang.reflect.Type
 
 
@@ -81,6 +80,7 @@ class SharedPreferencesHelper(context:Context?)
             )).apply()
     }
 
+
     fun getTransFromPrefs(): MutableList <TranslateData>{
         return mGson.fromJson(prefT.getString(TRANS_KEY,""),
             MSG_TYPE
@@ -95,20 +95,21 @@ class SharedPreferencesHelper(context:Context?)
                 MSG_TYPE
             )).apply()
     }
-    fun saveTransToPrefs(list: MutableList<TranslateData>) {
-        prefT.edit().clear().putString(
-            TRANS_KEY, mGson.toJson(list,
-                MSG_TYPE
-            )).apply()
-    }
 
-    //yandex trans
 
-    fun getTransYandexShPref(): MutableList <YandexDataAdapter>{
-        return mGson.fromJson(prefY.getString(YAN_KEY,""),
-            MSG_TYPE
-        )?: ArrayList <YandexDataAdapter>()
-    }
+//    fun saveTransToPrefs(list: MutableList<TranslateData>) {
+//        prefT.edit().clear().putString(
+//            TRANS_KEY, mGson.toJson(list,
+//                MSG_TYPE
+//            )).apply()
+//    }
+//
+//    //yandex trans list adapter
+//    fun getTransYandexShPref(): MutableList <YandexDataAdapter>{
+//        return mGson.fromJson(prefY.getString(YAN_KEY,""),
+//            MSG_TYPE
+//        )?: ArrayList <YandexDataAdapter>()
+//    }
 //user prefs
     fun setUid(uid: String) {
      prefUid.edit().putString(UID_KEY , uid).apply()

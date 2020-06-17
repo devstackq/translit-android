@@ -8,14 +8,11 @@
     app:cardCornerRadius="15dp"
     android:layout_marginEnd="10dp"
     android:layout_marginStart="10dp">
-
         <kz.kaspi.translit.ui.VideoPlayerView
             android:id="@+id/videoPlayerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:isSeekBarVisible="true">
-
         </kz.kaspi.translit.ui.VideoPlayerView>
-
 </androidx.cardview.widget.CardView>
 

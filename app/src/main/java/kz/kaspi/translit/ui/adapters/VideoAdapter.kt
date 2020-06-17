@@ -8,13 +8,14 @@ import kotlinx.android.synthetic.main.videoplayer_view.view.*
 import kotlinx.android.synthetic.main.view_item_player.view.*
 import kz.kaspi.translit.R
 import kz.kaspi.translit.models.Movie
-import kz.kaspi.translit.models.MoviesDataSource
+//import kz.kaspi.translit.models.MoviesDataSource
 import kz.kaspi.translit.ui.VideoPlayerView
 
-class VideoAdapter(private val callback: ((String) -> Unit)? = null)
+
+class VideoAdapter(private val callback: ((String) -> Unit)? = null, var list: ArrayList<Movie>)
     : RecyclerView.Adapter<VideoAdapter.ViewHolder>() {
 
-    private val items = MoviesDataSource.items
+    //private val items = MoviesDataSource.items
     private var context: Context? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -23,13 +24,17 @@ class VideoAdapter(private val callback: ((String) -> Unit)? = null)
         return ViewHolder(inflater, parent)
     }
 
-    override fun getItemCount(): Int = items.size
+    override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        items[position].also { item ->
+        list[position].also { item ->
             holder.bind(item)
             holder.itemView.playVideo.setOnClickListener {
-                callback?.invoke(item.previewUrl)
+                callback?.invoke(item.previewUrl.toString())
+            }
+            holder.itemView.apply {
+                titleVideo.text = list[position].name
+                descriptionVideo.text = list[position].subName
             }
         }
     }
@@ -38,8 +43,8 @@ class VideoAdapter(private val callback: ((String) -> Unit)? = null)
         inflater.inflate(R.layout.view_item_player, parent, false)) {
         private val videoPlayerView: VideoPlayerView = itemView.videoPlayerView
         fun bind(post: Movie) {
-            videoPlayerView.title.text = post.name
-            videoPlayerView.description.text = post.subName
+//            videoPlayerView.title.text = post.name
+           // videoPlayerView.description.text = post.subName
         }
     }
 }

@@ -32,32 +32,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:minHeight="?attr/actionBarSize"
+        android:padding="10dp"
         >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:paddingStart="30dp"
                 android:layout_weight="2"
                 android:text="Audary"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 tools:ignore="RtlSymmetry" />
-
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewYandex"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarTranslate"
-        tools:ignore="MissingConstraints,NotSibling" />
 
 
     <TextView
@@ -107,6 +96,60 @@
         app:layout_constraintStart_toStartOf="@+id/kazText"
         app:layout_constraintTop_toTopOf="@+id/kazText"
         app:layout_constraintVertical_bias="0.4" />
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/trans_items"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:background="@android:color/transparent"
+        android:backgroundTint="@android:color/transparent"
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/input_lng"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="24dp"
+            android:background="?attr/backgroundColor"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="14dp"
+            android:text=""
+            app:layout_constraintBottom_toTopOf="@+id/trans_res"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.363"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/translated_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="16dp"
+            android:background="?attr/editTextBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="14dp"
+            android:text=""
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints">
+
+        </TextView>
+    </androidx.cardview.widget.CardView>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,6 +3,7 @@ package kz.kaspi.translit.ui.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Looper
 import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
@@ -127,7 +128,6 @@ class MainFragments :  Fragment() {
 //            pref::addFavoriteToPrefs,
 //            pref::removeTransPrefs
         //)
-
         val itemDecoration =
             StudentItemDecoration(10, 12)
         listTranslateView.addItemDecoration(itemDecoration)
@@ -155,7 +155,6 @@ class MainFragments :  Fragment() {
             }
         }
         })
-
 //when event -> //fill value, data classetting layout manager, then setItems, values data class
         send_btn.setOnClickListener {
             if (arg.text.toString() != "") {
@@ -168,6 +167,7 @@ class MainFragments :  Fragment() {
                         .subscribe(
                             { argument ->
                                 //save values Db
+                               println( Thread.currentThread().equals( Looper.getMainLooper().thread))
                                 if (argument != null) {
                                     val id = if (message != null) message?.id else null
                                     val todo = TranslateEntity(

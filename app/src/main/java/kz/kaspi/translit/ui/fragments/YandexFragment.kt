@@ -1,93 +1,47 @@
 package kz.kaspi.translit.ui.fragments
 
+
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.fragment.app.Fragment
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_translate.*
 import kz.kaspi.translit.R
-import kz.kaspi.translit.ui.adapters.YandexAdapter
-import kz.kaspi.translit.models.YandexData
-import kz.kaspi.translit.models.YandexDataAdapter
-import kz.kaspi.translit.utils.ApiRequests
 import kz.kaspi.translit.utils.SharedPreferencesHelper
-import kz.kaspi.translit.utils.YandexApi.Companion.KEY
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
+
+//rxjava, change lang -> toolbar
 class YandexFragment : Fragment() {
 
-    private val list = mutableListOf<YandexDataAdapter>()
-    private val yandexData = YandexDataAdapter()
-
+    companion object {
+        private val API_KEY: String =
+            "trnsl.1.1.20170330T085156Z.928b6e6d5afb8d9a.32082885800f6b054b0b0ec2becc4adf884fb27a"
+    }
+    private val yandexApiService by lazy {
+        YandexApiService.create()
+    }
     lateinit var pref: SharedPreferencesHelper
+    private var disposable: Disposable? = null
+    private var lang : String? = "kk-en"
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_translate, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    var lang = "kk-ru"
-        val apiRequests = ApiRequests.create()
-        //config layout manager
-        pref =
-            SharedPreferencesHelper(activity?.baseContext)
 
-
-        val yandexLayoutManager =
-            LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        val yandexAdapter = YandexAdapter()
-
-        translate.setOnClickListener() {
-            val mapJson = HashMap<String, String>()
-            mapJson["key"] = KEY
-            mapJson["text"] = kazText.text.toString()
-            mapJson["lang"] = lang
-            mapJson["format"] = "plain"
-           // input.text = kazText.text.toString()
-            apiRequests
-                .getTranslate(mapJson)
-                .enqueue(object : Callback<YandexData> {
-                    @SuppressLint("SetTextI18n")
-                    override fun onFailure(call: Call<YandexData>, t: Throwable) {
-                       // result.text = "Ошибка: $t"
-                    }
-                    override fun onResponse(
-                        call: Call<YandexData>,
-                        response: Response<YandexData>
-                    ) {
-                        yandexData.result =  response
-                            .body()
-                            ?.text
-                            .toString()
-                            .drop(1)
-                            .dropLast(1)
-
-//get value, add each value array list, which receive - clickListener, from main fragm
-                        pref.getTransYandexShPref().forEach{
-                            list.add(it)
-                        }
-                        list.add(yandexData)
-                        recyclerViewYandex.apply {
-                            adapter = yandexAdapter
-                            layoutManager = yandexLayoutManager
-                        }
-                        yandexData.input  =  kazText.text.toString()
-                        yandexAdapter.setItems(list)
-                    }
-                })
-        }
+        super.onViewCreated(view, savedInstanceState)
+        initiateViews()
 
         toolbarTranslate.inflateMenu(R.menu.choice_lang);
+
         toolbarTranslate.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.kzrus -> {
@@ -110,12 +64,24 @@ class YandexFragment : Fragment() {
             false
         }
     }
+
+    private fun initiateViews() {
+        translate.setOnClickListener {
+            beginSearch( kazText.text.toString())
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun beginSearch(arg: String) {
+        input_lng.text = arg
+        disposable = lang?.let {
+            yandexApiService
+                .translateText(API_KEY, arg, it, "plain")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { result -> translated_text.text = result.text[0] }
+        }
+        pref =
+            SharedPreferencesHelper(activity?.baseContext)
+    }
 }
-//trnsl.1.1.20200526T183646Z.6a1f5538f7fbd1e4.e52a43209fb44b2f31f2d11b5ad308cf02a4bc32
-//config retorifit
-// create data class
-// connect to yandex api, setting TranslateApi
-// request to yandex trans
-//response set textview
-// if change lang, change request yandex api
-//save data sh prefe todo

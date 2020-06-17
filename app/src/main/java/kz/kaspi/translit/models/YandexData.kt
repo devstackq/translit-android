@@ -1,3 +1,7 @@
 package kz.kaspi.translit.models
 
-data class YandexData(private val code: Int, private val lang: String, var input: String, var text: ArrayList<String>)
+object YandexModel{
+    data class Result(val code: Int,
+                      val lang: String,
+                      val text: ArrayList<String>)
+}
