@@ -1,4 +1,4 @@
-package kz.kaspi.translit.ui.fragments
+package kz.kaspi.translit.view.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle

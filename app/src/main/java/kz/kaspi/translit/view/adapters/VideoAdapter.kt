@@ -1,4 +1,4 @@
-package kz.kaspi.translit.ui.adapters
+package kz.kaspi.translit.view.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.view_item_player.view.*
 import kz.kaspi.translit.R
 import kz.kaspi.translit.models.Movie
 //import kz.kaspi.translit.models.MoviesDataSource
-import kz.kaspi.translit.ui.VideoPlayerView
+import kz.kaspi.translit.view.VideoPlayerView
 
 
 class VideoAdapter(private val callback: ((String) -> Unit)? = null, var list: ArrayList<Movie>)

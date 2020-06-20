@@ -1,4 +1,4 @@
-package kz.kaspi.translit.ui.adapters
+package kz.kaspi.translit.view.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

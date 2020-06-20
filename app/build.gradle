@@ -16,7 +16,6 @@ android {
         versionCode 1
         versionName "1.0"
 
-
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [
@@ -37,7 +36,6 @@ android {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 
-
     buildTypes {
         release {
             shrinkResources true
@@ -48,9 +46,7 @@ android {
     dataBinding {
         enabled = true
     }
-
 }
-
 
 dependencies {
     def room_version = "2.2.5"
@@ -78,7 +74,6 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.19'
 
-
     //Retrofit
     implementation "com.squareup.retrofit2:retrofit:2.7.2"
     implementation "com.squareup.retrofit2:converter-gson:2.7.2"
@@ -101,25 +96,20 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version"
     implementation 'androidx.room:room-coroutines:2.1.0-alpha04'
     testCompile 'android.arch.persistence.room:testing:1.1.1'
-
     //Firebase
     implementation 'com.google.firebase:firebase-analytics:17.4.3'
     implementation 'com.google.android.gms:play-services-auth:18.0.0'
     implementation 'com.google.firebase:firebase-auth:19.3.1'
-
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.11.0'
 //    annotationProcessor 'androidx.annotation:annotation:1.0.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     testImplementation 'androidx.test:core:1.2.0'
     kapt 'com.github.bumptech.glide:compiler:4.11.0'
-
     //firebase DB
     implementation 'com.google.firebase:firebase-database-ktx:19.3.0'
-
     //viewpager
     implementation "androidx.viewpager2:viewpager2:1.0.0"
-
     //motion layout
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta6'
 //picasso

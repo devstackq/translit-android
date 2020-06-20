@@ -1,4 +1,4 @@
-package kz.kaspi.translit.ui.fragments
+package kz.kaspi.translit.view.fragments
 
 import android.annotation.SuppressLint
 import android.net.Uri
@@ -7,7 +7,7 @@ import android.os.CountDownTimer
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
-import kz.kaspi.translit.ui.adapters.ViewPageAdapter
+import kz.kaspi.translit.view.adapters.ViewPageAdapter
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions

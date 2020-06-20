@@ -5,8 +5,6 @@ import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kz.kaspi.translit.models.TranslateData
-import kz.kaspi.translit.models.YandexDataAdapter
-import kz.kaspi.translit.models.YandexModel
 import java.lang.reflect.Type
 
 

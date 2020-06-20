@@ -1,4 +1,4 @@
-package kz.kaspi.translit.ui.fragments
+package kz.kaspi.translit.view.fragments
 
 import io.reactivex.Observable
 import kz.kaspi.translit.models.YandexModel

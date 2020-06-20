@@ -1,4 +1,4 @@
-package kz.kaspi.translit.ui.adapters
+package kz.kaspi.translit.view.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -11,11 +11,12 @@ import com.google.android.material.internal.ContextUtils.getActivity
 import kotlinx.android.synthetic.main.translate_items.view.*
 import kz.kaspi.translit.R
 import kz.kaspi.translit.data.entity.TranslateEntity
-import kz.kaspi.translit.models.TranslateData
+import kz.kaspi.translit.ui.adapters.DiffCallback
 
 
 //diff util callback add, trans
 class MainAdapter( context: Context
+
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     val mList   = mutableListOf<TranslateEntity>()
@@ -41,9 +42,8 @@ class MainAdapter( context: Context
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         //from data to bind, and set
         (holder as ViewHolder).bind(messageList[position])
+
         //click listener, by item position -> call other func
-
-
         holder.itemView.setOnCreateContextMenuListener { contextMenu, _, _ ->
             contextMenu.add("Kóshіrý").setOnMenuItemClickListener {
                 println("copy")
@@ -65,7 +65,6 @@ class MainAdapter( context: Context
             }
         }
     }
-
 
     inner class ViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
         View.OnCreateContextMenuListener, RecyclerView.ViewHolder(
@@ -117,7 +116,6 @@ class MainAdapter( context: Context
         result.dispatchUpdatesTo(this)
         mList.clear()
         mList.addAll(list)
-
         this.messageList = mList
     }
 }

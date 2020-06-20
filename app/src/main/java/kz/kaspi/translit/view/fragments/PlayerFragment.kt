@@ -1,4 +1,4 @@
-package kz.kaspi.translit.ui.fragments
+package kz.kaspi.translit.view.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.video_fragment_main.*
 import kotlinx.android.synthetic.main.fragment_video_motion.*
 import kz.kaspi.translit.R
-import kz.kaspi.translit.ui.MainActivity
+import kz.kaspi.translit.view.MainActivity
 import kotlin.math.abs
 
 const val URL = "url"

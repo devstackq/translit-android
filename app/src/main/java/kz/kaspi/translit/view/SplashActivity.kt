@@ -1,4 +1,4 @@
-package kz.kaspi.translit.ui
+package kz.kaspi.translit.view
 
 import android.content.Intent
 import android.os.Bundle

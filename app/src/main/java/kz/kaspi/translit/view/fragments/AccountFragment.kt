@@ -1,4 +1,4 @@
-package kz.kaspi.translit.ui.fragments
+package kz.kaspi.translit.view.fragments
 
 import android.content.Intent
 import android.os.Bundle

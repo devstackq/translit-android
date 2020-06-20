@@ -1,4 +1,4 @@
-package kz.kaspi.translit.ui.fragments
+package kz.kaspi.translit.view.fragments
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -13,7 +13,7 @@ import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.user_total.*
 import kz.kaspi.translit.R
 import kz.kaspi.translit.models.Statistics
-import kz.kaspi.translit.ui.adapters.UserStatsListAdapter
+import kz.kaspi.translit.view.adapters.UserStatsListAdapter
 
 
 class TotalStatsFragment : Fragment() {

@@ -1,10 +1,10 @@
-package kz.kaspi.translit.ui.adapters
+package kz.kaspi.translit.view.adapters
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import kz.kaspi.translit.ui.fragments.TotalStatsFragment
-import kz.kaspi.translit.ui.fragments.UserStatFragment
+import kz.kaspi.translit.view.fragments.TotalStatsFragment
+import kz.kaspi.translit.view.fragments.UserStatFragment
 import java.lang.NullPointerException
 
 class ViewPageAdapter(fragmentActivity: FragmentActivity): FragmentStateAdapter(fragmentActivity) {

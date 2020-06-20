@@ -1,4 +1,4 @@
-package kz.kaspi.translit.ui.fragments
+package kz.kaspi.translit.view.fragments
 
 import android.os.Bundle
 import android.text.Editable
@@ -14,9 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.video_fragment_main.*
 import kz.kaspi.translit.R
 import kz.kaspi.translit.models.ItemStorage
-import kz.kaspi.translit.models.Movie
-import kz.kaspi.translit.ui.adapters.MainAdapter
-import kz.kaspi.translit.ui.adapters.VideoAdapter
+import kz.kaspi.translit.view.adapters.VideoAdapter
 
 //http://bytepace.com/blog/transition2 lesson learn 19
 

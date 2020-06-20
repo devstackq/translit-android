@@ -1,4 +1,4 @@
-package kz.kaspi.translit.ui
+package kz.kaspi.translit.view
 
 import android.content.Context
 import android.os.Bundle
@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kz.kaspi.translit.R
-import kz.kaspi.translit.ui.fragments.*
+import kz.kaspi.translit.view.fragments.*
 
 
 open class MainActivity : AppCompatActivity() {
