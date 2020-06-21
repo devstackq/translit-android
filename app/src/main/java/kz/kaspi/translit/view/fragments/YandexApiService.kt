@@ -11,10 +11,12 @@ import retrofit2.http.Query
 interface YandexApiService {
 
     @GET("translate")
-    fun translateText (@Query("key") key: String,
-                       @Query("text") text: String,
-                       @Query("lang") lang: String,
-                       @Query("format") format: String): Observable<YandexModel.Result>
+    fun translateText(
+        @Query("key") key: String,
+        @Query("text") text: String,
+        @Query("lang") lang: String,
+        @Query("format") format: String
+    ): Observable<YandexModel.Result>
 
     companion object {
         fun create(): YandexApiService {

@@ -25,30 +25,29 @@ class AccountFragment : Fragment(R.layout.signin_fragment) {
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var pref: SharedPreferencesHelper
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         pref = SharedPreferencesHelper(activity?.baseContext)
-            // Config google signin
-            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build()
-            //get client by google signin options
-            googleSignInClient = requireActivity().let { GoogleSignIn.getClient(it, gso) }!!
-//if not logged, signin, else -> redirect profile fragment
-        if(!pref.getLogged()!!) {
+        // Config google signin
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+        // get client by google signin options
+        googleSignInClient = requireActivity().let { GoogleSignIn.getClient(it, gso) }!!
+// if not logged, signin, else -> redirect profile fragment
+        if (!pref.getLogged()!!) {
             signin_btn.setOnClickListener {
                 signIn()
             }
-        }else if (pref.getLogged()!!) {
+        } else if (pref.getLogged()!!) {
             signinFrame.removeAllViews()
             requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.signinFrame, (ProfileFragments() as Fragment)).commit()
+                .replace(R.id.signinFrame, (ProfileFragment() as Fragment)).commit()
         }
     }
 
     private fun signIn() {
-        //get request to google, and get data onActivityResult
+        // get request to google, and get data onActivityResult
         val signInClient = googleSignInClient.signInIntent
         startActivityForResult(signInClient, GOOOGLE_CODE)
     }
@@ -57,7 +56,7 @@ class AccountFragment : Fragment(R.layout.signin_fragment) {
         super.onActivityResult(requestCode, resultCode, data)
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == GOOOGLE_CODE) {
-            //give data, google user data
+            // give data, google user data
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             val exception = task.exception
             if (task.isSuccessful) {
@@ -78,25 +77,24 @@ class AccountFragment : Fragment(R.layout.signin_fragment) {
 
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
-        mAuth = FirebaseAuth.getInstance();
-        if(mAuth.currentUser != null) {
+        mAuth = FirebaseAuth.getInstance()
+        if (mAuth.currentUser != null) {
             mAuth.signInWithCredential(credential)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         pref.setLogged(true)
                         // Sign in success, update UI with the signed-in user's information
                         Log.d("SignInFragment", "signInWithCredential:success")
-                        //send value profile fragment, and hide signin views
+                        // send value profile fragment, and hide signin views
                         signinFrame.removeAllViews()
                         requireActivity().supportFragmentManager.beginTransaction()
-                            .replace(R.id.signinFrame, (ProfileFragments() as Fragment)).commit()
+                            .replace(R.id.signinFrame, (ProfileFragment() as Fragment)).commit()
                     } else {
                         Log.d("SignInFragment", "signInWithCredential:failure")
                     }
                 }
-        }else {
+        } else {
             Log.d("SignInFragment", "Signin failed")
         }
     }
-
 }

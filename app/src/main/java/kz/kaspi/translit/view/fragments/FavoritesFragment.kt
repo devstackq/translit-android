@@ -12,14 +12,14 @@ import kz.kaspi.translit.utils.SharedPreferencesHelper
 import kz.kaspi.translit.models.TranslateData
 import kz.kaspi.translit.adapters.FavoriteAdapter
 
-
 class FavoritesFragment : Fragment() {
 
     private var favorites = mutableListOf<TranslateData>()
     lateinit var pref: SharedPreferencesHelper
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_favorites, container, false)
@@ -29,8 +29,8 @@ class FavoritesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         pref =
             SharedPreferencesHelper(activity?.baseContext)
-//get value, add each value array list, which receive - clickListener, from main fragm
-            pref.getFavoriteFromPrefs().forEach{
+// get value, add each value array list, which receive - clickListener, from main fragm
+        pref.getFavoriteFromPrefs().forEach {
             favorites.add(it)
         }
 

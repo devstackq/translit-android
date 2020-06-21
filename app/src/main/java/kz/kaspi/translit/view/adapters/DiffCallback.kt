@@ -3,8 +3,10 @@ package kz.kaspi.translit.ui.adapters
 import androidx.recyclerview.widget.DiffUtil
 import kz.kaspi.translit.data.entity.TranslateEntity
 
-
-class DiffCallback(private val oldList: List<TranslateEntity>, private val newList: List<TranslateEntity>) : DiffUtil.Callback() {
+class DiffCallback(
+    private val oldList: List<TranslateEntity>,
+    private val newList: List<TranslateEntity>
+) : DiffUtil.Callback() {
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         return oldList[oldItemPosition].id == newList[newItemPosition].id
@@ -27,5 +29,4 @@ class DiffCallback(private val oldList: List<TranslateEntity>, private val newLi
         }
         return true
     }
-
 }

@@ -13,13 +13,13 @@ import kz.kaspi.translit.R
 import kz.kaspi.translit.data.entity.TranslateEntity
 import kz.kaspi.translit.ui.adapters.DiffCallback
 
-
-//diff util callback add, trans
-class MainAdapter( context: Context
+// diff util callback add, trans
+class MainAdapter(
+    context: Context
 
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    val mList   = mutableListOf<TranslateEntity>()
+    val mList = mutableListOf<TranslateEntity>()
 
     private val context: Context? = null
     private var messageList: List<TranslateEntity> = arrayListOf()
@@ -29,7 +29,7 @@ class MainAdapter( context: Context
         super.onViewRecycled(holder)
     }
 
-    //create 1 view holder, - pattern translate items
+    // create 1 view holder, - pattern translate items
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater: LayoutInflater = LayoutInflater.from(parent.context)
         return ViewHolder(inflater, parent)
@@ -40,10 +40,10 @@ class MainAdapter( context: Context
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        //from data to bind, and set
+        // from data to bind, and set
         (holder as ViewHolder).bind(messageList[position])
 
-        //click listener, by item position -> call other func
+        // click listener, by item position -> call other func
         holder.itemView.setOnCreateContextMenuListener { contextMenu, _, _ ->
             contextMenu.add("Kóshіrý").setOnMenuItemClickListener {
                 println("copy")
@@ -54,12 +54,12 @@ class MainAdapter( context: Context
                 true
             }
             contextMenu.add("Óshіrý").setOnMenuItemClickListener {
-               // removeListener(listValue[position])
+                // removeListener(listValue[position])
                 println("reomve")
                 true
             }
             contextMenu.add("Unaǵandar tіzіmіne qosý").setOnMenuItemClickListener {
-               // clickListener(listValue[position])
+                // clickListener(listValue[position])
                 println("favorite")
                 true
             }
@@ -74,10 +74,11 @@ class MainAdapter( context: Context
     ) {
         private val latin = itemView.latin_kazakh
         private val cyril = itemView.cyrlic_kazakh
-        //when onclick by item,  put value, and send Main fragment(save like favorites value, then from ModalFragment  replace -> main fragment
+
+        // when onclick by item,  put value, and send Main fragment(save like favorites value, then from ModalFragment  replace -> main fragment
         fun bind(
             item: TranslateEntity
-           // clickListener: (name: TranslateEntity) -> Unit
+            // clickListener: (name: TranslateEntity) -> Unit
         ) {
             cyril.text = item.cyrillic
             latin.text = item.latin
@@ -110,7 +111,7 @@ class MainAdapter( context: Context
         }
     }
 
-//save item, room-> list entity, adapter call ->  1etDiffValue(oldList, newList), compare data, if unique by id, add item1
+    // save item, room-> list entity, adapter call ->  1etDiffValue(oldList, newList), compare data, if unique by id, add item1
     fun setDiffValue(list: List<TranslateEntity>) {
         val result: DiffUtil.DiffResult = DiffUtil.calculateDiff(DiffCallback(mList, list), false)
         result.dispatchUpdatesTo(this)

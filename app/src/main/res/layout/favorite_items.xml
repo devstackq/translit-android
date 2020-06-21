@@ -15,7 +15,6 @@
         android:backgroundTint="#4D1789DB"
         android:padding="5dp">
 
-
         <ImageButton
             android:id="@+id/imageButton2"
             android:layout_width="30dp"
@@ -38,8 +37,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="16dp"
-            android:textColor="#8A8080"
             android:text=""
+            android:textColor="#8A8080"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/delete_favorite"
             app:layout_constraintStart_toEndOf="@+id/imageButton2"

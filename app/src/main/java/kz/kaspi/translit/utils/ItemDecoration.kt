@@ -4,7 +4,7 @@ import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
-class StudentItemDecoration(
+class ItemDecoration(
     private val insetVertical: Int,
     private val insetHorizontal: Int
 ) : RecyclerView.ItemDecoration() {

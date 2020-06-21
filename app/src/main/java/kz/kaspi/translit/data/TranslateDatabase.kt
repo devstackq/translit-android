@@ -11,20 +11,23 @@ import kz.kaspi.translit.data.entity.TranslateEntity
 abstract class TranslateDatabase : RoomDatabase() {
 
     abstract fun translateDao(): TranslateDao
-//if not create db, -> create, else use this db
-    companion object {
-    private var INSTANCE : TranslateDatabase? = null
 
-    fun getInstance(context: Context) : TranslateDatabase? {
-        if(INSTANCE == null) {
-            synchronized(TranslateDatabase::class) {
-                INSTANCE = Room.databaseBuilder(context,
-                TranslateDatabase::class.java,
-                "trans_db")
-                    .build()
+    // if not create db, -> create, else use this db
+    companion object {
+        private var INSTANCE: TranslateDatabase? = null
+
+        fun getInstance(context: Context): TranslateDatabase? {
+            if (INSTANCE == null) {
+                synchronized(TranslateDatabase::class) {
+                    INSTANCE = Room.databaseBuilder(
+                        context,
+                        TranslateDatabase::class.java,
+                        "trans_db"
+                    )
+                        .build()
+                }
             }
+            return INSTANCE
         }
-        return INSTANCE
     }
-}
 }

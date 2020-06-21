@@ -12,11 +12,11 @@ interface ContractInterface {
 
     interface Presenter {
         fun startFunction(arg: String)
-        fun getMsgPresenter() : LiveData<List<TranslateEntity>>?
+        fun getMsgPresenter(): LiveData<List<TranslateEntity>>?
     }
 
     interface Model {
-        fun getAllMsgKirLat() : LiveData<List<TranslateEntity>>
+        fun getAllMsgKirLat(): LiveData<List<TranslateEntity>>
         fun saveMessageKirLat(input: String)
     }
 }

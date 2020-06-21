@@ -19,32 +19,32 @@ import kz.kaspi.translit.R
 import kz.kaspi.translit.contract.ContractInterface
 import kz.kaspi.translit.models.TranslateModel
 import kz.kaspi.translit.presenter.TranslatePresenter
-import kz.kaspi.translit.utils.StudentItemDecoration
+import kz.kaspi.translit.utils.ItemDecoration
 import kz.kaspi.translit.view.adapters.MainAdapter
 import kotlinx.android.synthetic.main.fragment_main.listTranslateView
 import kotlinx.android.synthetic.main.fragment_main.send_btn
 import kotlinx.android.synthetic.main.fragment_main.toolbar
 import kz.kaspi.translit.data.entity.TranslateEntity
-import kz.kaspi.translit.models.TranslateData
 import kz.kaspi.translit.utils.SharedPreferencesHelper
 
-
-class MainFragments :  Fragment(), ContractInterface.View {
+class MainFragment : Fragment(), ContractInterface.View {
 
     lateinit var msgViewModel: TranslateModel
     private val messages = mutableListOf<TranslateEntity>()
 
     companion object {
-        var modell : TranslateModel?=null
+        var modell: TranslateModel? = null
         lateinit var pref: SharedPreferencesHelper
-      lateinit var  transLayoutManager : LinearLayoutManager
-        lateinit var context : Context
+        lateinit var transLayoutManager: LinearLayoutManager
+        lateinit var context: Context
     }
+
     lateinit var presenter: TranslatePresenter
-    private lateinit var transAdapterRoom : MainAdapter
+    private lateinit var transAdapterRoom: MainAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         pref = SharedPreferencesHelper(activity?.baseContext)
@@ -55,24 +55,24 @@ class MainFragments :  Fragment(), ContractInterface.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         presenter = TranslatePresenter(this)
-            super.onViewCreated(view, savedInstanceState)
+        super.onViewCreated(view, savedInstanceState)
         updateViewData()
-//get value theme, change night mode/true/false -> change night mode
+// get value theme, change night mode/true/false -> change night mode
         val themePref = activity?.getSharedPreferences("ThemeMode", Context.MODE_PRIVATE)
-        val  shPref  = themePref?.edit()
-        val isNightMode : Boolean? = themePref?.getBoolean("theme", false)
+        val shPref = themePref?.edit()
+        val isNightMode: Boolean? = themePref?.getBoolean("theme", false)
 
-        if(isNightMode!!) {
+        if (isNightMode!!) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        }else {
+        } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
 
-//theme change
-        val  btnTheme = view.findViewById<Button>(R.id.themeButton)!!
+// theme change
+        val btnTheme = view.findViewById<Button>(R.id.changeTheme)!!
         btnTheme.setOnClickListener {
             if (isNightMode) {
-                //if night -> off night mode, chage theme value(sh pref) -> false,
+                // if night -> off night mode, chage theme value(sh pref) -> false,
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                 shPref?.putBoolean("theme", false)
                 shPref?.apply()
@@ -83,24 +83,23 @@ class MainFragments :  Fragment(), ContractInterface.View {
             }
         }
 
-
-        //context menu register / scrollbar
+        // context menu register / scrollbar
         val mRecyclerView = view.findViewById<RecyclerView>(R.id.listTranslateView)
         registerForContextMenu(mRecyclerView)
 
-//todo
-        //add favorites - click context menu/remove, -> update page
-      // val transAdapter = MainAdapter(
+// todo
+        // add favorites - click context menu/remove, -> update page
+        // val transAdapter = MainAdapter(
 //            pref::addFavoriteToPrefs,
 //            pref::removeTransPrefs
-        //)
+        // )
 
         val itemDecoration =
-            StudentItemDecoration(10, 12)
+            ItemDecoration(10, 12)
         listTranslateView.addItemDecoration(itemDecoration)
 
-        //toolbar option menu like popup menu
-        toolbar.inflateMenu(R.menu.popup_menu);
+        // toolbar option menu like popup menu
+        toolbar.inflateMenu(R.menu.popup_menu)
 
         toolbar.setOnMenuItemClickListener { item ->
             when (item.itemId) {
@@ -138,17 +137,17 @@ class MainFragments :  Fragment(), ContractInterface.View {
                 //  pref::removeTransPrefs
             )
         }!!
-        //when create post -> go to bottom, last created post
+        // when create post -> go to bottom, last created post
         transAdapterRoom = activity?.let { MainAdapter(it) }!!
         listTranslateView.adapter = transAdapterRoom
-
     }
-//mvp
+
+    // mvp
     override fun initView() {
         send_btn.setOnClickListener {
-            val input  = view?.findViewById<EditText>(R.id.inputtext)!!
+            val input = view?.findViewById<EditText>(R.id.inputtext)!!
             presenter.startFunction(input.text.toString())
-
+            input.text = null
 
             val scrollerSmooth = object : LinearSmoothScroller(context) {
                 override fun getVerticalSnapPreference(): Int =
@@ -160,7 +159,7 @@ class MainFragments :  Fragment(), ContractInterface.View {
     }
 
     override fun updateViewData() {
-        //set msg from room
+        // set msg from room
         presenter.getMsgPresenter()?.observe(viewLifecycleOwner, Observer {
             it?.let { it1 -> transAdapterRoom.setDiffValue(it1) }
         })

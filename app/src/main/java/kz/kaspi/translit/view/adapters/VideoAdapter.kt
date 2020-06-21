@@ -8,14 +8,13 @@ import kotlinx.android.synthetic.main.videoplayer_view.view.*
 import kotlinx.android.synthetic.main.view_item_player.view.*
 import kz.kaspi.translit.R
 import kz.kaspi.translit.models.Movie
-//import kz.kaspi.translit.models.MoviesDataSource
+// import kz.kaspi.translit.models.MoviesDataSource
 import kz.kaspi.translit.view.VideoPlayerView
 
+class VideoAdapter(private val callback: ((String) -> Unit)? = null, var list: ArrayList<Movie>) :
+    RecyclerView.Adapter<VideoAdapter.ViewHolder>() {
 
-class VideoAdapter(private val callback: ((String) -> Unit)? = null, var list: ArrayList<Movie>)
-    : RecyclerView.Adapter<VideoAdapter.ViewHolder>() {
-
-    //private val items = MoviesDataSource.items
+    // private val items = MoviesDataSource.items
     private var context: Context? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -40,7 +39,8 @@ class VideoAdapter(private val callback: ((String) -> Unit)? = null, var list: A
     }
 
     inner class ViewHolder(inflater: LayoutInflater, parent: ViewGroup) : RecyclerView.ViewHolder(
-        inflater.inflate(R.layout.view_item_player, parent, false)) {
+        inflater.inflate(R.layout.view_item_player, parent, false)
+    ) {
         private val videoPlayerView: VideoPlayerView = itemView.videoPlayerView
         fun bind(post: Movie) {
 //            videoPlayerView.title.text = post.name

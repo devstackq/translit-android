@@ -9,21 +9,20 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import kz.kaspi.translit.R
 import kz.kaspi.translit.view.fragments.*
 
-
 open class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-           setSupportActionBar(findViewById(R.id.toolbar))
+        setSupportActionBar(findViewById(R.id.toolbar))
         setContentView(R.layout.activity_main)
 
         val pref = getSharedPreferences("ThemeMode", Context.MODE_PRIVATE)
         val isModeTheme = pref.getBoolean("theme", false)
 
-        if(isModeTheme) {
+        if (isModeTheme) {
             setTheme(R.style.LightTheme)
-        }else {
+        } else {
             setTheme(R.style.DarkTheme)
         }
 
@@ -32,11 +31,11 @@ open class MainActivity : AppCompatActivity() {
         navigationView.menu.getItem(2)?.isChecked = true
 
         navigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-        //set main page, first page render
+        // set main page, first page render
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
         transaction.replace(
             R.id.frameLayout,
-            MainFragments()
+            MainFragment()
         )
         transaction.addToBackStack(null)
         transaction.commit()
@@ -48,7 +47,7 @@ open class MainActivity : AppCompatActivity() {
             var selectedFragment: Fragment? = null
             when (item.itemId) {
                 R.id.nav_latins -> selectedFragment =
-                    MainFragments()
+                    MainFragment()
                 R.id.nav_translate -> selectedFragment =
                     YandexFragment()
                 R.id.nav_search -> selectedFragment =

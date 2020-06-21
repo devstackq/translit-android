@@ -13,7 +13,8 @@ import kz.kaspi.translit.view.MainActivity
 import kotlin.math.abs
 
 const val URL = "url"
-class PlayerFragment: Fragment(R.layout.fragment_video_motion) {
+
+class PlayerFragment : Fragment(R.layout.fragment_video_motion) {
 
     companion object {
         fun newInstance(url: String): PlayerFragment = PlayerFragment().also { f ->
@@ -22,6 +23,7 @@ class PlayerFragment: Fragment(R.layout.fragment_video_motion) {
             }
         }
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -36,11 +38,17 @@ class PlayerFragment: Fragment(R.layout.fragment_video_motion) {
             videoPlayerView.play(url)
         }
         videoMotionLayout.setTransitionListener(object : MotionLayout.TransitionListener {
-            override fun onTransitionChange(motionLayout: MotionLayout?, startId: Int, endId: Int, progress: Float) {
+            override fun onTransitionChange(
+                motionLayout: MotionLayout?,
+                startId: Int,
+                endId: Int,
+                progress: Float
+            ) {
                 (activity as MainActivity).also {
                     it.mainMotionLayout.progress = abs(progress)
                 }
             }
+
             override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) {
             }
 
