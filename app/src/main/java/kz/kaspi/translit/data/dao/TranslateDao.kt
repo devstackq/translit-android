@@ -16,5 +16,5 @@ interface TranslateDao {
     fun updateMessage(message: TranslateEntity)
 
     @Query("SELECT * FROM translate_table ORDER BY id ASC")
-    fun getAllMessages() : LiveData<List<TranslateEntity>>
+    fun getAllMessages(): LiveData<List<TranslateEntity>>
 }

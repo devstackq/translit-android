@@ -17,8 +17,8 @@
         android:id="@+id/pauseVideo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="150dp"
-        android:layout_marginTop="80dp"
+        android:layout_gravity="center|top"
+        android:layout_marginTop="70dp"
         android:backgroundTint="@android:color/transparent"
         android:src="@drawable/pause_svg" />
 
@@ -26,8 +26,8 @@
         android:id="@+id/playVideo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="150dp"
-        android:layout_marginTop="80dp"
+        android:layout_gravity="center|top"
+        android:layout_marginTop="70dp"
         android:backgroundTint="@android:color/transparent"
         android:src="@drawable/play_svg" />
 

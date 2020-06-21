@@ -7,7 +7,6 @@
     android:id="@+id/trans"
     tools:context=".view.fragments.YandexFragment">
 
-
     <ImageView
         android:id="@+id/bg_main_trans"
         android:background="?attr/backgroundImage"
@@ -31,39 +30,32 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:minHeight="?attr/actionBarSize"
-        android:padding="10dp"
         >
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:orientation="horizontal">
+            <Button
+                android:id="@+id/changeTheme"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:background="?attr/toggle_theme"
+                android:text="" />
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
+                android:paddingStart="10dp"
+                android:layout_weight="1"
                 android:text="Audary"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 tools:ignore="RtlSymmetry" />
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
 
-
-    <TextView
-        android:id="@+id/scroll"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="4dp"
-        android:background="?attr/arrow"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/bg_main"
-        app:layout_constraintEnd_toEndOf="parent" />
-
     <EditText
         android:id="@+id/kazText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
         android:background="?attr/editTextBackground"
         android:hint="@string/hint"
         android:includeFontPadding="false"
@@ -79,21 +71,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         />
-
-
     <ImageButton
         android:id="@+id/translate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="355dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="4dp"
         android:backgroundTint="#00FFFFFF"
         android:src="?attr/sendBtn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/kazText"
         app:layout_constraintTop_toTopOf="@+id/kazText"
         app:layout_constraintVertical_bias="0.4" />
 
@@ -102,7 +89,7 @@
         android:id="@+id/trans_items"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="70dp"
         android:background="@android:color/transparent"
         android:backgroundTint="@android:color/transparent"
         app:cardElevation="0dp"
@@ -113,7 +100,7 @@
 
         <TextView
             android:id="@+id/input_lng"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
@@ -130,7 +117,7 @@
 
         <TextView
             android:id="@+id/translated_text"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="80dp"
             android:layout_marginEnd="32dp"
@@ -145,11 +132,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints">
-
         </TextView>
     </androidx.cardview.widget.CardView>
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

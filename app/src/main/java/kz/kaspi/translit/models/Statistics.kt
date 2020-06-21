@@ -5,4 +5,4 @@ data class Statistics(
     val name: String,
     val countTime: String,
     val countWord: String
-    )
+)

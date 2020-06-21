@@ -16,14 +16,15 @@ import kz.kaspi.translit.R
 import kz.kaspi.translit.models.ItemStorage
 import kz.kaspi.translit.view.adapters.VideoAdapter
 
-//http://bytepace.com/blog/transition2 lesson learn 19
+// http://bytepace.com/blog/transition2 lesson learn 19
 
 class VideoFragment : Fragment() {
 
-    private  lateinit var adapter: VideoAdapter
+    private lateinit var adapter: VideoAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.video_fragment_main, container, false)
@@ -58,9 +59,11 @@ class VideoFragment : Fragment() {
             }
         })
     }
+
     private val spanHighlight by lazy {
         ForegroundColorSpan(
-            ResourcesCompat.getColor(resources, R.color.selectedColorD, null))
+            ResourcesCompat.getColor(resources, R.color.selectedColorD, null)
+        )
     }
 
     private fun highlight() {
@@ -81,14 +84,19 @@ class VideoFragment : Fragment() {
 
             if (item.subName.contains(s, true)) {
                 val index = item.subName.toString().indexOf(s.toString(), 0, true)
-                item.subName.setSpan(spanHighlight, index, index + s.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                item.subName.setSpan(
+                    spanHighlight,
+                    index,
+                    index + s.length,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
             }
         }
     }
 
     private fun replaceVideoFragment(url: String) {
-    requireActivity().supportFragmentManager.beginTransaction()
-        .replace(R.id.fragmentContainer, (PlayerFragment.newInstance(url) ))
-        .commit()
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainer, (PlayerFragment.newInstance(url)))
+            .commit()
     }
 }

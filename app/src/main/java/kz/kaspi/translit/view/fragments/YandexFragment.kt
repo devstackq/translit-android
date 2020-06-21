@@ -1,6 +1,5 @@
 package kz.kaspi.translit.view.fragments
 
-
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,23 +14,26 @@ import kotlinx.android.synthetic.main.fragment_translate.*
 import kz.kaspi.translit.R
 import kz.kaspi.translit.utils.SharedPreferencesHelper
 
-
-//rxjava, change lang -> toolbar
+// rxjava, change lang -> toolbar
 class YandexFragment : Fragment() {
 
     companion object {
         private val API_KEY: String =
             "trnsl.1.1.20170330T085156Z.928b6e6d5afb8d9a.32082885800f6b054b0b0ec2becc4adf884fb27a"
     }
+
     private val yandexApiService by lazy {
         YandexApiService.create()
     }
     lateinit var pref: SharedPreferencesHelper
     private var disposable: Disposable? = null
-    private var lang : String? = "kk-en"
+    private var lang: String? = "kk-en"
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_translate, container, false)
     }
 
@@ -40,7 +42,7 @@ class YandexFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initiateViews()
 
-        toolbarTranslate.inflateMenu(R.menu.choice_lang);
+        toolbarTranslate.inflateMenu(R.menu.choice_lang)
 
         toolbarTranslate.setOnMenuItemClickListener { item ->
             when (item.itemId) {
@@ -67,7 +69,7 @@ class YandexFragment : Fragment() {
 
     private fun initiateViews() {
         translate.setOnClickListener {
-            beginSearch( kazText.text.toString())
+            beginSearch(kazText.text.toString())
         }
     }
 

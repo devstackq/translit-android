@@ -7,9 +7,7 @@ import com.google.gson.reflect.TypeToken
 import kz.kaspi.translit.models.TranslateData
 import java.lang.reflect.Type
 
-
-class SharedPreferencesHelper(context:Context?)
-{
+class SharedPreferencesHelper(context: Context?) {
     companion object {
         const val PREF_KEY_FAVORITE = "SHARED_PREFS_FAV"
         const val PREF_KEY = "SHARED_PREFS"
@@ -27,75 +25,82 @@ class SharedPreferencesHelper(context:Context?)
         val MSG_TYPE: Type = object : TypeToken<MutableList<TranslateData>>() {}.type
     }
 
-    private lateinit var pref:SharedPreferences
-    private lateinit var prefT:SharedPreferences
-    private lateinit var prefY:SharedPreferences
-    private lateinit var prefUid:SharedPreferences
-    private lateinit var  prefLog:SharedPreferences
-    private lateinit var  prefName:SharedPreferences
-    private lateinit var  prefEmail:SharedPreferences
-    private lateinit var  prefPhoto:SharedPreferences
-    private lateinit var  prefCountWord:SharedPreferences
-    private lateinit var  prefCountTime:SharedPreferences
+    private lateinit var pref: SharedPreferences
+    private lateinit var prefT: SharedPreferences
+    private lateinit var prefY: SharedPreferences
+    private lateinit var prefUid: SharedPreferences
+    private lateinit var prefLog: SharedPreferences
+    private lateinit var prefName: SharedPreferences
+    private lateinit var prefEmail: SharedPreferences
+    private lateinit var prefPhoto: SharedPreferences
+    private lateinit var prefCountWord: SharedPreferences
+    private lateinit var prefCountTime: SharedPreferences
 
     private val mGson: Gson = Gson()
 
     init {
         if (context != null) {
-            pref = context.getSharedPreferences(PREF_KEY_FAVORITE,Context.MODE_PRIVATE)
+            pref = context.getSharedPreferences(PREF_KEY_FAVORITE, Context.MODE_PRIVATE)
             prefT = context.getSharedPreferences(PREF_KEY, Context.MODE_PRIVATE)
             prefY = context.getSharedPreferences(YAN_KEY, Context.MODE_PRIVATE)
             prefUid = context.getSharedPreferences(UID_KEY, Context.MODE_PRIVATE)
             prefLog = context.getSharedPreferences(LOGGED, Context.MODE_PRIVATE)
-            prefName =context.getSharedPreferences(LOGGED, Context.MODE_PRIVATE)
+            prefName = context.getSharedPreferences(LOGGED, Context.MODE_PRIVATE)
             prefEmail = context.getSharedPreferences(LOGGED, Context.MODE_PRIVATE)
             prefPhoto = context.getSharedPreferences(LOGGED, Context.MODE_PRIVATE)
-            prefCountWord  = context.getSharedPreferences(LOGGED, Context.MODE_PRIVATE)
+            prefCountWord = context.getSharedPreferences(LOGGED, Context.MODE_PRIVATE)
             prefCountTime = context.getSharedPreferences(LOGGED, Context.MODE_PRIVATE)
         }
     }
-    fun addFavoriteToPrefs(item: TranslateData){
+
+    fun addFavoriteToPrefs(item: TranslateData) {
         val msgList: MutableList<TranslateData> = getFavoriteFromPrefs()
         msgList.add(item)
         pref.edit().putString(
-            FAV_KEY,mGson.toJson(msgList,
+            FAV_KEY, mGson.toJson(
+                msgList,
                 MSG_TYPE
-            )).apply()
+            )
+        ).apply()
     }
 
-    fun getFavoriteFromPrefs(): MutableList <TranslateData>{
-        return mGson.fromJson(pref.getString(FAV_KEY,""),
+    fun getFavoriteFromPrefs(): MutableList<TranslateData> {
+        return mGson.fromJson(
+            pref.getString(FAV_KEY, ""),
             MSG_TYPE
-        )?: ArrayList <TranslateData>()
+        ) ?: ArrayList<TranslateData>()
     }
 
     fun removeFavoritePrefs(item: TranslateData) {
         val msgList: MutableList<TranslateData> = getFavoriteFromPrefs()
         msgList.remove(item)
         pref.edit().putString(
-            FAV_KEY,mGson.toJson(msgList,
+            FAV_KEY, mGson.toJson(
+                msgList,
                 MSG_TYPE
-            )).apply()
+            )
+        ).apply()
     }
 
-
-    fun getTransFromPrefs(): MutableList <TranslateData>{
-        return mGson.fromJson(prefT.getString(TRANS_KEY,""),
+    fun getTransFromPrefs(): MutableList<TranslateData> {
+        return mGson.fromJson(
+            prefT.getString(TRANS_KEY, ""),
             MSG_TYPE
-        )?: ArrayList <TranslateData>()
+        ) ?: ArrayList<TranslateData>()
     }
 
     fun removeTransPrefs(item: TranslateData) {
         val msgList: MutableList<TranslateData> = getTransFromPrefs()
         msgList.remove(item)
         prefT.edit().putString(
-            TRANS_KEY, mGson.toJson(msgList,
+            TRANS_KEY, mGson.toJson(
+                msgList,
                 MSG_TYPE
-            )).apply()
+            )
+        ).apply()
     }
 
-
-//    fun saveTransToPrefs(list: MutableList<TranslateData>) {
+    //    fun saveTransToPrefs(list: MutableList<TranslateData>) {
 //        prefT.edit().clear().putString(
 //            TRANS_KEY, mGson.toJson(list,
 //                MSG_TYPE
@@ -108,16 +113,16 @@ class SharedPreferencesHelper(context:Context?)
 //            MSG_TYPE
 //        )?: ArrayList <YandexDataAdapter>()
 //    }
-//user prefs
+// user prefs
     fun setUid(uid: String) {
-     prefUid.edit().putString(UID_KEY , uid).apply()
-    }
-    fun getUid() : String? {
-        return   prefUid.getString(UID_KEY, "")
+        prefUid.edit().putString(UID_KEY, uid).apply()
     }
 
+    fun getUid(): String? {
+        return prefUid.getString(UID_KEY, "")
+    }
 
-    fun getLogged() : Boolean? {
+    fun getLogged(): Boolean? {
         return prefLog.getBoolean(LOGGED, false)
     }
 
@@ -129,7 +134,7 @@ class SharedPreferencesHelper(context:Context?)
         return prefName.edit().putString(USER_NAME, n).apply()
     }
 
-    fun getNamePref() : String? {
+    fun getNamePref(): String? {
         return prefName.getString(USER_NAME, "name")
     }
 
@@ -137,16 +142,15 @@ class SharedPreferencesHelper(context:Context?)
         return prefEmail.edit().putString(USER_EMAIL, n).apply()
     }
 
-    fun getEmailPref() : String? {
+    fun getEmailPref(): String? {
         return prefEmail.getString(USER_EMAIL, "email")
     }
-
 
     fun setPhotoPref(n: String) {
         return prefPhoto.edit().putString(USER_PHOTO, n).apply()
     }
 
-    fun getPhotoPref() : String? {
+    fun getPhotoPref(): String? {
         return prefPhoto.getString(USER_PHOTO, "photo")
     }
 
@@ -154,15 +158,15 @@ class SharedPreferencesHelper(context:Context?)
         return prefCountWord.edit().putString(uid, n).apply()
     }
 
-    fun getCountWord() : String? {
+    fun getCountWord(): String? {
         return prefCountWord.getString(getUid(), "0")
     }
 
     fun setCountTime(n: String, uid: String) {
-        return prefCountTime.edit().putString(uid+"time", n).apply()
+        return prefCountTime.edit().putString(uid + "time", n).apply()
     }
 
-    fun getCountTime(uid: String) : String? {
-        return prefCountTime.getString (uid+"time", "0")
+    fun getCountTime(uid: String): String? {
+        return prefCountTime.getString(uid + "time", "0")
     }
 }

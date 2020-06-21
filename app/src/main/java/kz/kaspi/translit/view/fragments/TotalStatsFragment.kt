@@ -15,14 +15,14 @@ import kz.kaspi.translit.R
 import kz.kaspi.translit.models.Statistics
 import kz.kaspi.translit.view.adapters.UserStatsListAdapter
 
-
 class TotalStatsFragment : Fragment() {
 
     private var users = mutableListOf<Statistics>()
     private var sharedPreferences: SharedPreferences? = null
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.user_total, container, false)
@@ -44,12 +44,11 @@ class TotalStatsFragment : Fragment() {
         }
         val statsAdapter = UserStatsListAdapter()
         val statsLayoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-        //insert view xml, data
+        // insert view xml, data
         userStats.apply {
             adapter = statsAdapter
             layoutManager = statsLayoutManager
         }
         statsAdapter.setItems(users)
-
     }
 }

@@ -81,7 +81,7 @@ class VideoPlayerView
         }
     }
 
-    private fun listenPlayerTrack(){
+    private fun listenPlayerTrack() {
         runnable = Runnable {
             seekBar.progress = videoView.currentPosition
             handlerView?.postDelayed(runnable, 100)

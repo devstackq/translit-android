@@ -8,7 +8,8 @@ import android.view.View
 import androidx.constraintlayout.motion.widget.MotionLayout
 import kz.kaspi.translit.R
 
-class SingleTouchMotionLayout(context: Context, attributeSet: AttributeSet? = null) : MotionLayout(context, attributeSet) {
+class SingleTouchMotionLayout(context: Context, attributeSet: AttributeSet? = null) :
+    MotionLayout(context, attributeSet) {
 
     private val viewToDetectTouch by lazy {
         findViewById<View>(R.id.videoViewContainer)
@@ -56,7 +57,7 @@ class SingleTouchMotionLayout(context: Context, attributeSet: AttributeSet? = nu
         addTransitionListener(listener)
     }
 
-    fun addTransitionListener(listener: TransitionListener?) {
+    override fun addTransitionListener(listener: TransitionListener?) {
         transitionListenerList += listener
     }
 
@@ -74,3 +75,4 @@ class SingleTouchMotionLayout(context: Context, attributeSet: AttributeSet? = nu
         return touchStarted && super.onTouchEvent(event)
     }
 }
+// 1:272819090705:android:1d8136cf0c3a96664f48b0

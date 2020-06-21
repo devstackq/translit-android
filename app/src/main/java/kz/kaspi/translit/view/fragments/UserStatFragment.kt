@@ -11,6 +11,7 @@ import kz.kaspi.translit.utils.SharedPreferencesHelper
 
 class UserStatFragment : Fragment(R.layout.users_stats) {
     private lateinit var pref: SharedPreferencesHelper
+
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -22,7 +23,7 @@ class UserStatFragment : Fragment(R.layout.users_stats) {
         val t = pref.getCountTime(currentUser?.uid.toString())?.toInt()
         val min = t?.div(60)
         countWord.text = " Аударылған сөздер саны: " + pref.getCountWord()
-        //countTime.text =  " Қосымшада өтікзген уақыт саны: " +  pref.getCountTime() + "сек"
+        // countTime.text =  " Қосымшада өтікзген уақыт саны: " +  pref.getCountTime() + "сек"
         countTime.text = " Қосымшада өтікзген уақыт саны $min мин"
     }
 }

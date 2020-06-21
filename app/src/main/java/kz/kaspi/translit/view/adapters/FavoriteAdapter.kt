@@ -1,6 +1,5 @@
 package kz.kaspi.translit.adapters
 
-
 import android.view.LayoutInflater
 
 import android.view.ViewGroup
@@ -19,7 +18,7 @@ class FavoriteAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater: LayoutInflater = LayoutInflater.from(parent.context)
-        //return apply, adapter
+        // return apply, adapter
         return FavoriteViewHolder(inflater, parent)
     }
 
@@ -28,39 +27,39 @@ class FavoriteAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        //from data to bind, and set
-      val    adapterPosition = holder.adapterPosition
-        val item = favoritesList[adapterPosition];
+        // from data to bind, and set
+        val adapterPosition = holder.adapterPosition
+        val item = favoritesList[adapterPosition]
 
         (holder as FavoriteViewHolder).bind(favoritesList[position], clickLis, addItemListener)
-        //remove by position, send reoved item clicklistener, and updated value share prefs
+        // remove by position, send reoved item clicklistener, and updated value share prefs
 
-            holder.delBtn.setOnClickListener { it ->
-                favoritesList.removeAt(position)
-                notifyItemRemoved(position)
-                notifyItemRangeChanged(position,  favoritesList.size)
-        //remove item from sh pref
-                clickLis(item)
-                val snackbar = Snackbar
-                    .make(it, "Message is deleted", Snackbar.LENGTH_SHORT)
-                    .setAction("UNDO") {
-                        favoritesList.add( position, item )
-                        notifyItemInserted(position)
-                        notifyItemRangeChanged(position,  favoritesList.size)
-                        addItemListener(item)
-                        val snackbar = Snackbar.make(
-                            it,
-                            "Message is restored!",
-                            Snackbar.LENGTH_SHORT
-                        )
+        holder.delBtn.setOnClickListener { it ->
+            favoritesList.removeAt(position)
+            notifyItemRemoved(position)
+            notifyItemRangeChanged(position, favoritesList.size)
+            // remove item from sh pref
+            clickLis(item)
+            val snackbar = Snackbar
+                .make(it, "Message is deleted", Snackbar.LENGTH_SHORT)
+                .setAction("UNDO") {
+                    favoritesList.add(position, item)
+                    notifyItemInserted(position)
+                    notifyItemRangeChanged(position, favoritesList.size)
+                    addItemListener(item)
+                    val snackbar = Snackbar.make(
+                        it,
+                        "Message is restored!",
+                        Snackbar.LENGTH_SHORT
+                    )
 
-                        snackbar.show()
-                    }
-                snackbar.show()
-            }
+                    snackbar.show()
+                }
+            snackbar.show()
+        }
     }
 
-    //send Items, view Holder
+    // send Items, view Holder
     fun setItems(item: MutableList<TranslateData>) {
         favoritesList.run {
             clear()
@@ -83,6 +82,6 @@ class FavoriteAdapter(
         ) {
             cyril.text = post.inputValue
             latin.text = post.resultValue
-            }
         }
     }
+}
