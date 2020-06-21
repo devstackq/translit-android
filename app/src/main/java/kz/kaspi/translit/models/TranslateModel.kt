@@ -1,6 +1,7 @@
 package kz.kaspi.translit.models
 
 import android.app.Application
+import android.content.Context
 import android.os.Looper
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
@@ -13,12 +14,15 @@ import io.reactivex.schedulers.Schedulers
 import kz.kaspi.translit.contract.ContractInterface
 import kz.kaspi.translit.data.entity.TranslateEntity
 import kz.kaspi.translit.data.repository.TranslateRepository
+import kz.kaspi.translit.view.fragments.MainFragments.Companion.pref
 
 class TranslateModel(application: Application) :  AndroidViewModel(application), ContractInterface.Model  {
 
     private var message: TranslateEntity? = null
     private val repository: TranslateRepository = TranslateRepository(application)
     private var disposable = CompositeDisposable()
+
+
     override fun getAllMsgKirLat(): LiveData<List<TranslateEntity>> {
         return  repository.getAllMessages()
     }
@@ -26,7 +30,7 @@ class TranslateModel(application: Application) :  AndroidViewModel(application),
 //give arg, main fragment, call presetnter startFunc(arg) -> presenter save value -> model saveMsgKirLat
      override fun saveMessageKirLat(input : String) {
 
-    val translit : Observable<String> = Observable.create { emitter ->
+    val translit: Observable<String> = Observable.create { emitter ->
         emitter.onNext(input)
         emitter.onComplete()
     }
@@ -56,7 +60,8 @@ class TranslateModel(application: Application) :  AndroidViewModel(application),
                 }
             )
     disposable.add(subscribe)
-     }
+}
+
 
      private fun transSentences(str: String) : String {
 
@@ -72,6 +77,11 @@ class TranslateModel(application: Application) :  AndroidViewModel(application),
                  newWord = "enter cyrillic symbols.."
              }
          }
+         //count split, regex, last count, get sh pref, sum, countCurrent + countShPref, update count Shpref
+         val countWord = newWord.split("\\s+".toRegex()).size.toLong()
+         val last = pref.getCountWord()
+         val lastSumCurrent =  last?.toLong()?.plus(countWord)
+         pref.setCountWord(lastSumCurrent.toString(), pref.getUid().toString())
          return newWord
      }
 

@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 import kz.kaspi.translit.R
 import kz.kaspi.translit.contract.ContractInterface
@@ -23,13 +24,21 @@ import kz.kaspi.translit.view.adapters.MainAdapter
 import kotlinx.android.synthetic.main.fragment_main.listTranslateView
 import kotlinx.android.synthetic.main.fragment_main.send_btn
 import kotlinx.android.synthetic.main.fragment_main.toolbar
+import kz.kaspi.translit.data.entity.TranslateEntity
+import kz.kaspi.translit.models.TranslateData
+import kz.kaspi.translit.utils.SharedPreferencesHelper
 
 
 class MainFragments :  Fragment(), ContractInterface.View {
 
     lateinit var msgViewModel: TranslateModel
+    private val messages = mutableListOf<TranslateEntity>()
+
     companion object {
         var modell : TranslateModel?=null
+        lateinit var pref: SharedPreferencesHelper
+      lateinit var  transLayoutManager : LinearLayoutManager
+        lateinit var context : Context
     }
     lateinit var presenter: TranslatePresenter
     private lateinit var transAdapterRoom : MainAdapter
@@ -38,6 +47,7 @@ class MainFragments :  Fragment(), ContractInterface.View {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        pref = SharedPreferencesHelper(activity?.baseContext)
         msgViewModel = ViewModelProviders.of(this).get(TranslateModel::class.java)
         modell = msgViewModel
         return inflater.inflate(R.layout.fragment_main, container, false)
@@ -118,17 +128,7 @@ class MainFragments :  Fragment(), ContractInterface.View {
             }
             false
         }
-    }
-
-    override fun initView() {
-        send_btn.setOnClickListener {
-            val input  = view?.findViewById<EditText>(R.id.inputtext)!!
-            presenter.startFunction(input.text.toString())
-        }
-    }
-
-    override fun updateViewData() {
-        val transLayoutManager =
+        transLayoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         listTranslateView.layoutManager = transLayoutManager
         transAdapterRoom = activity?.let {
@@ -138,10 +138,28 @@ class MainFragments :  Fragment(), ContractInterface.View {
                 //  pref::removeTransPrefs
             )
         }!!
-
+        //when create post -> go to bottom, last created post
         transAdapterRoom = activity?.let { MainAdapter(it) }!!
         listTranslateView.adapter = transAdapterRoom
 
+    }
+//mvp
+    override fun initView() {
+        send_btn.setOnClickListener {
+            val input  = view?.findViewById<EditText>(R.id.inputtext)!!
+            presenter.startFunction(input.text.toString())
+
+
+            val scrollerSmooth = object : LinearSmoothScroller(context) {
+                override fun getVerticalSnapPreference(): Int =
+                    SNAP_TO_START
+            }
+            scrollerSmooth.targetPosition = messages.size
+            transLayoutManager.startSmoothScroll(scrollerSmooth)
+        }
+    }
+
+    override fun updateViewData() {
         //set msg from room
         presenter.getMsgPresenter()?.observe(viewLifecycleOwner, Observer {
             it?.let { it1 -> transAdapterRoom.setDiffValue(it1) }

@@ -44,7 +44,7 @@ class VideoAdapter(private val callback: ((String) -> Unit)? = null, var list: A
         private val videoPlayerView: VideoPlayerView = itemView.videoPlayerView
         fun bind(post: Movie) {
 //            videoPlayerView.title.text = post.name
-           // videoPlayerView.description.text = post.subName
+//            videoPlayerView.description.text = post.subName
         }
     }
 }
