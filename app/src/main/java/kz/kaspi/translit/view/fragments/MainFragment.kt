@@ -17,8 +17,6 @@ import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 import kz.kaspi.translit.R
 import kz.kaspi.translit.contract.ContractInterface
-import kz.kaspi.translit.models.TranslateModel
-import kz.kaspi.translit.presenter.TranslatePresenter
 import kz.kaspi.translit.utils.ItemDecoration
 import kz.kaspi.translit.view.adapters.MainAdapter
 import kotlinx.android.synthetic.main.fragment_main.listTranslateView
@@ -26,20 +24,18 @@ import kotlinx.android.synthetic.main.fragment_main.send_btn
 import kotlinx.android.synthetic.main.fragment_main.toolbar
 import kz.kaspi.translit.data.entity.TranslateEntity
 import kz.kaspi.translit.utils.SharedPreferencesHelper
+import kz.kaspi.translit.view.viewmodel.TransViewModel
 
-class MainFragment : Fragment(), ContractInterface.View {
+class MainFragment : Fragment() {
 
-    lateinit var msgViewModel: TranslateModel
     private val messages = mutableListOf<TranslateEntity>()
-
     companion object {
-        var modell: TranslateModel? = null
+        lateinit   var viewmodel: TransViewModel
         lateinit var pref: SharedPreferencesHelper
         lateinit var transLayoutManager: LinearLayoutManager
         lateinit var context: Context
     }
 
-    lateinit var presenter: TranslatePresenter
     private lateinit var transAdapterRoom: MainAdapter
 
     override fun onCreateView(
@@ -48,14 +44,14 @@ class MainFragment : Fragment(), ContractInterface.View {
         savedInstanceState: Bundle?
     ): View? {
         pref = SharedPreferencesHelper(activity?.baseContext)
-        msgViewModel = ViewModelProviders.of(this).get(TranslateModel::class.java)
-        modell = msgViewModel
+//        viewmodel = ViewModelProviders.of(this).get(TranslateModel::class.java)
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        presenter = TranslatePresenter(this)
+        //presenter = TranslatePresenter(this)
         super.onViewCreated(view, savedInstanceState)
+        viewmodel = ViewModelProviders.of(this).get(TransViewModel::class.java)
         updateViewData()
 // get value theme, change night mode/true/false -> change night mode
         val themePref = activity?.getSharedPreferences("ThemeMode", Context.MODE_PRIVATE)
@@ -140,28 +136,25 @@ class MainFragment : Fragment(), ContractInterface.View {
         // when create post -> go to bottom, last created post
         transAdapterRoom = activity?.let { MainAdapter(it) }!!
         listTranslateView.adapter = transAdapterRoom
-    }
 
-    // mvp
-    override fun initView() {
         send_btn.setOnClickListener {
-            val input = view?.findViewById<EditText>(R.id.inputtext)!!
-            presenter.startFunction(input.text.toString())
-            input.text = null
+            val input = view.findViewById<EditText>(R.id.inputtext)!!
+            viewmodel.saveMessage(input.text.toString())
 
+            input.text = null
             val scrollerSmooth = object : LinearSmoothScroller(context) {
                 override fun getVerticalSnapPreference(): Int =
                     SNAP_TO_START
             }
             scrollerSmooth.targetPosition = messages.size
-            transLayoutManager.startSmoothScroll(scrollerSmooth)
+            //transLayoutManager.startSmoothScroll(scrollerSmooth)
+            updateViewData()
         }
     }
 
-    override fun updateViewData() {
-        // set msg from room
-        presenter.getMsgPresenter()?.observe(viewLifecycleOwner, Observer {
-            it?.let { it1 -> transAdapterRoom.setDiffValue(it1) }
-        })
+    private fun updateViewData() {
+        viewmodel.getAllMessages()?.observe(viewLifecycleOwner, Observer {
+            it.let { it1 -> transAdapterRoom.setDiffValue(it1) }
+            })
     }
 }

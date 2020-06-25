@@ -20,6 +20,7 @@ import kz.kaspi.translit.R
 import kz.kaspi.translit.utils.SharedPreferencesHelper
 
 class ProfileFragment : Fragment(R.layout.profile_fragment) {
+
     private lateinit var pref: SharedPreferencesHelper
     private val database = Firebase.database
     private lateinit var mAuth: FirebaseAuth

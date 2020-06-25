@@ -1,4 +1,5 @@
-package kz.kaspi.translit.models
+package kz.kaspi.translit.view.viewmodel
+
 
 import android.app.Application
 import android.os.Looper
@@ -10,24 +11,27 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import kz.kaspi.translit.contract.ContractInterface
 import kz.kaspi.translit.data.entity.TranslateEntity
 import kz.kaspi.translit.data.repository.TranslateRepository
-import kz.kaspi.translit.view.fragments.MainFragment.Companion.pref
+import kz.kaspi.translit.view.fragments.MainFragment
 
-class TranslateModel(application: Application) : AndroidViewModel(application),
-    ContractInterface.Model {
+class TransViewModel(application: Application) : AndroidViewModel(application) {
 
-    private var message: TranslateEntity? = null
+
     private val repository: TranslateRepository = TranslateRepository(application)
+    private var message: TranslateEntity? = null
     private var disposable = CompositeDisposable()
 
-    override fun getAllMsgKirLat(): LiveData<List<TranslateEntity>> {
-        return repository.getAllMessages()
+    fun getAllMessages(): LiveData<List<TranslateEntity>>? {
+        return MainFragment.viewmodel.repository?.getAllMessages()
     }
 
-    // give arg, main fragment, call presetnter startFunc(arg) -> presenter save value -> model saveMsgKirLat
-    override fun saveMessageKirLat(input: String) {
+    fun saveMessage(arg: String): Unit? {
+      return MainFragment.viewmodel.saveMessageKirLat(arg);
+        //view.updateViewData()
+    }
+
+     private fun saveMessageKirLat(input: String) {
 
         val translit: Observable<String> = Observable.create { emitter ->
             emitter.onNext(input)
@@ -59,6 +63,7 @@ class TranslateModel(application: Application) : AndroidViewModel(application),
                     }
                 )
         disposable.add(subscribe)
+
     }
 
     private fun transSentences(str: String): String {
@@ -77,9 +82,12 @@ class TranslateModel(application: Application) : AndroidViewModel(application),
         }
         // count split, regex, last count, get sh pref, sum, countCurrent + countShPref, update count Shpref
         val countWord = newWord.split("\\s+".toRegex()).size.toLong()
-        val last = pref.getCountWord()
+        val last = MainFragment.pref.getCountWord()
         val lastSumCurrent = last?.toLong()?.plus(countWord)
-        pref.setCountWord(lastSumCurrent.toString(), pref.getUid().toString())
+        MainFragment.pref.setCountWord(
+            lastSumCurrent.toString(),
+            MainFragment.pref.getUid().toString()
+        )
         return newWord
     }
 
@@ -157,4 +165,5 @@ class TranslateModel(application: Application) : AndroidViewModel(application),
         }
         return latinLetter
     }
+
 }

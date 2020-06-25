@@ -18,7 +18,7 @@ import kz.kaspi.translit.utils.SharedPreferencesHelper
 class AccountFragment : Fragment(R.layout.signin_fragment) {
 
     companion object {
-        private const val GOOOGLE_CODE = 777
+        private const val GOOGLE_CODE = 777
     }
 
     private lateinit var mAuth: FirebaseAuth
@@ -49,13 +49,13 @@ class AccountFragment : Fragment(R.layout.signin_fragment) {
     private fun signIn() {
         // get request to google, and get data onActivityResult
         val signInClient = googleSignInClient.signInIntent
-        startActivityForResult(signInClient, GOOOGLE_CODE)
+        startActivityForResult(signInClient, GOOGLE_CODE)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-        if (requestCode == GOOOGLE_CODE) {
+        if (requestCode == GOOGLE_CODE) {
             // give data, google user data
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             val exception = task.exception
@@ -78,7 +78,7 @@ class AccountFragment : Fragment(R.layout.signin_fragment) {
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         mAuth = FirebaseAuth.getInstance()
-        if (mAuth.currentUser != null) {
+            if (mAuth.currentUser != null) {
             mAuth.signInWithCredential(credential)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {

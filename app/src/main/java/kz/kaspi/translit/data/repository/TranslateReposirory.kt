@@ -9,10 +9,11 @@ import kz.kaspi.translit.data.TranslateDatabase
 import kz.kaspi.translit.data.dao.TranslateDao
 import kz.kaspi.translit.data.entity.TranslateEntity
 
+
 class TranslateRepository(application: Application) {
     // 1 entity, 2 dao-interface query DB,  3 repos -> call method, to DB,  4 viewmodel, 5 call from activity, adapter
-    private val translateDao: TranslateDao
-    private val allMessages: LiveData<List<TranslateEntity>>
+    private val translateDao : TranslateDao
+    private val allMessages : LiveData<List<TranslateEntity>>
 
     init {
         val db = TranslateDatabase.getInstance(application.applicationContext)
@@ -21,12 +22,23 @@ class TranslateRepository(application: Application) {
     }
 
     fun saveMessage(message: TranslateEntity) = runBlocking {
-        this.launch(Dispatchers.IO) {
+        this.launch (Dispatchers.IO) {
             translateDao.saveMessage(message)
         }
     }
+    fun updateMessage(message: TranslateEntity) = runBlocking {
+        this.launch(Dispatchers.IO) {
+            translateDao.updateMessage(message)
+        }
+    }
+    fun deleteMessage(message: TranslateEntity) = runBlocking {
+        this.launch(Dispatchers.IO) {
+            translateDao.deleteMessage(message)
+        }
+    }
 
-    fun getAllMessages(): LiveData<List<TranslateEntity>> {
+    fun getAllMessages() : LiveData<List<TranslateEntity>>  {
         return allMessages
     }
+
 }
